@@ -1,0 +1,24 @@
+{
+  "name": "stemcell",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "engines": {
+    "node": "7.5.0"
+  },
+  "author": "Derek Lindahl <derek.lindahl@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/dlindahl/stemcell/issues"
+  },
+  "contributors": [],
+  "homepage": "http://dlindahl.github.io/stemcell",
+  "keywords": [],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dlindahl/stemcell.git"
+  },
+  "scripts": {},
+  "dependencies": {},
+  "devDependencies": {}
+}
