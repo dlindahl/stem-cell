@@ -116,6 +116,10 @@ module.exports = {
           name: 'static/media/[name].[hash:8].[ext]'
         },
         test: /\.svg$/
+      },
+      {
+        loader: 'expose?React',
+        test: require.resolve('react')
       }
       /*
        * ** STOP ** Are you adding a new loader?
