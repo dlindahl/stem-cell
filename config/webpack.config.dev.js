@@ -1,4 +1,3 @@
-const autoprefixer = require('autoprefixer')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
@@ -75,7 +74,6 @@ module.exports = {
            * https://github.com/facebookincubator/create-react-app/issues/1713
            */
           /\.(js|jsx)(\?.*)?$/,
-          /\.css$/,
           /\.json$/,
           /\.svg$/
         ],
@@ -96,15 +94,6 @@ module.exports = {
           cacheDirectory: true
         },
         test: /\.(js|jsx)$/
-      },
-      // "postcss" loader applies autoprefixer to our CSS.
-      // "css" loader resolves paths in CSS and adds assets as dependencies.
-      // "style" loader turns CSS into JS modules that inject <style> tags.
-      // In production, we use a plugin to extract that CSS to a file, but
-      // In development "style" loader enables hot editing of CSS.
-      {
-        loader: 'style!css?importLoaders=1!postcss',
-        test: /\.css$/
       },
       // JSON is not enabled by default in Webpack but both Node and Browserify
       // Allow it implicitly so we also enable it.
@@ -173,19 +162,6 @@ module.exports = {
     // See https://github.com/facebookincubator/create-react-app/issues/186
     new WatchMissingNodeModulesPlugin(paths.appNodeModules)
   ],
-  // We use PostCSS for autoprefixing only.
-  postcss () {
-    return [
-      autoprefixer({
-        browsers: [
-          '>1%',
-          'last 4 versions',
-          'Firefox ESR',
-          'not ie < 9' // React doesn't support IE8 anyway
-        ]
-      })
-    ]
-  },
   // First, run the linter.
   // It's important to do this before Babel processes the JS.
   preLoaders: [

@@ -1,7 +1,5 @@
-const autoprefixer = require('autoprefixer')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin')
 const paths = require('./paths')
@@ -10,9 +8,6 @@ const getClientEnvironment = require('./env')
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
 const publicPath = paths.servedPath
-// Some apps do not use client-side routing with pushState.
-// For these, "homepage" can be set to "." to enable relative asset paths.
-const shouldUseRelativeAssetPaths = publicPath === './'
 // `publicUrl` is just like `publicPath`, but we will provide it to our app
 // As %PUBLIC_URL% in `index.html` and `process.env.PUBLIC_URL` in JavaScript.
 // Omit trailing slash as %PUBLIC_URL%/xyz looks better than %PUBLIC_URL%xyz.
@@ -24,25 +19,6 @@ const env = getClientEnvironment(publicUrl)
 // Development builds of React are slow and not intended for production.
 if (env.stringified['process.env'].NODE_ENV !== '"production"') {
   throw new Error('Production builds must have NODE_ENV=production.')
-}
-
-// Note: defined here because it will be used more than once.
-const cssFilename = 'static/css/[name].[contenthash:8].css'
-
-/*
- * ExtractTextPlugin expects the build output to be flat.
- * See also:
- *    https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/27)
- * However, our output is structured with css, js and media folders.
- * To have this structure working with relative paths, we have to use custom
- * options.
- */
-// Making sure that the publicPath goes back to to build folder.
-let extractTextPluginOptions
-if (shouldUseRelativeAssetPaths) {
-  extractTextPluginOptions = {
-    publicPath: Array(cssFilename.split('/').length).join('../')
-  }
 }
 
 // This is the production configuration.
@@ -69,7 +45,7 @@ module.exports = {
        * avoid requests. Otherwise, it acts like the "file" loader.
        */
       {
-        exclude: [/\.html$/, /\.(js|jsx)$/, /\.css$/, /\.json$/, /\.svg$/],
+        exclude: [/\.html$/, /\.(js|jsx)$/, /\.json$/, /\.svg$/],
         loader: 'url',
         query: {
           limit: 10000,
@@ -81,27 +57,6 @@ module.exports = {
         include: paths.appSrc,
         loader: 'babel',
         test: /\.(js|jsx)$/
-      },
-      // The notation here is somewhat confusing.
-      // "postcss" loader applies autoprefixer to our CSS.
-      // "css" loader resolves paths in CSS and adds assets as dependencies.
-      // "style" loader normally turns CSS into JS modules injecting <style>,
-      // But unlike in development configuration, we do something different.
-      // `ExtractTextPlugin` first applies the "postcss" and "css" loaders
-      // (second argument), then grabs the result CSS and puts it into a
-      // Separate file in our build process. This way we actually ship
-      // A single CSS file in production instead of JS code injecting <style>
-      // Tags. If you use code splitting, however, any async bundles will still
-      // Use the "style" loader inside the async code so CSS from them won't be
-      // In the main CSS file.
-      {
-        loader: ExtractTextPlugin.extract(
-          'style',
-          'css?importLoaders=1!postcss',
-          extractTextPluginOptions
-        ),
-        test: /\.css$/
-        // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
       },
       // JSON is not enabled by default in Webpack but both Node and Browserify
       // Allow it implicitly so we also enable it.
@@ -168,7 +123,6 @@ module.exports = {
       minify: {
         collapseWhitespace: true,
         keepClosingSlash: true,
-        minifyCSS: true,
         minifyJS: true,
         minifyURLs: true,
         removeComments: true,
@@ -202,8 +156,6 @@ module.exports = {
         screw_ie8: true
       }
     }),
-    // Note: this won't work without ExtractTextPlugin.extract(..) in `loaders`.
-    new ExtractTextPlugin(cssFilename),
     // Generate a manifest file which contains a mapping of all asset filenames
     // To their corresponding output file so that tools can pick it up without
     // Having to parse `index.html`.
@@ -211,19 +163,6 @@ module.exports = {
       fileName: 'asset-manifest.json'
     })
   ],
-  // We use PostCSS for autoprefixing only.
-  postcss () {
-    return [
-      autoprefixer({
-        browsers: [
-          '>1%',
-          'last 4 versions',
-          'Firefox ESR',
-          'not ie < 9' // React doesn't support IE8 anyway
-        ]
-      })
-    ]
-  },
   resolve: {
     alias: {
       /* eslint-disable max-len */
