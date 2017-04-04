@@ -1,22 +1,15 @@
-import { storiesOf, action, linkTo } from '@kadira/storybook'
-import Button from './Button'
-import Welcome from './Welcome'
+import { configure } from '@kadira/storybook'
+import { css } from 'glamor'
 
-const foo = {
-  a: 456,
-  z: 123
+css.global('html, body', {
+  margin: 0,
+  padding: 0
+})
+
+const req = require.context('../src/components/', true, /.stories.js$/)
+
+function loadStories () {
+  req.keys().forEach((filename) => req(filename))
 }
 
-window.f = foo
-
-storiesOf('Welcome', module).add('to Storybook', () => (
-  <Welcome showApp={linkTo('Button')} />
-))
-
-storiesOf('Button', module)
-  .add('with text', () => (
-    <Button onClick={action('clicked')}>Hello Button</Button>
-  ))
-  .add('with some emoji', () => (
-    <Button onClick={action('clicked')}>😀 😎 👍 💯</Button>
-  ))
+configure(loadStories, module)

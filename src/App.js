@@ -1,6 +1,8 @@
-import { Component } from 'react'
 import { css } from 'glamor'
-import logo from './logo.svg'
+import Heading from './components/Heading'
+import Text from './components/Text'
+import ThemeProvider from './components/ThemeProvider'
+import VerticalRhythm from './components/VerticalRhythm'
 
 const spin = css.keyframes('spin', {
   from: { transform: 'rotate(0deg)' },
@@ -26,20 +28,34 @@ const style = {
   })
 }
 
-class App extends Component {
-  render () {
-    return (
+const App = (props) => (
+  <ThemeProvider>
+    <VerticalRhythm baseline>
       <div className={style.container}>
-        <div className={style.header}>
-          <img src={logo} className={style.logo} alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className={style.intro}>
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <Heading borderColor="red" borderTopWidth={15} level={1} paddingTop={0}>
+          A Visual Type Scale
+        </Heading>
+        <Heading
+          borderBottomWidth={15}
+          borderColor="purple"
+          level={1}
+          marginBottom={1}
+        >
+          A Visual Type Scale
+        </Heading>
+        <Heading level={2}>
+          A Visual Type Scale
+        </Heading>
+        <Heading level={3}>A Visual Type Scale</Heading>
+        <Heading level={4}>A Visual Type Scale</Heading>
+        <Heading level={5}>A Visual Type Scale</Heading>
+        <Heading level={6}>A Visual Type Scale</Heading>
+        <Text size="brevier">A Visual Type Scale</Text>
+        <Text size="minion">A Visual Type Scale</Text>
+        <Text>BODY: A Visual Type Scale</Text>
       </div>
-    )
-  }
-}
+    </VerticalRhythm>
+  </ThemeProvider>
+)
 
 export default App
