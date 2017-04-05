@@ -1,25 +1,63 @@
-import { Children, cloneElement, Component, PropTypes } from 'react'
-import { css } from 'glamor'
+import { Component, PropTypes } from 'react'
+import GlobalStylesheet from './GlobalStylesheet'
 
-const resetRules = {
+const boxResetBaseRules = {
   boxSizing: 'border-box',
   fontFamily: 'sans-serif',
   fontWeight: 'normal',
   margin: 0,
   padding: 0
 }
-const resetCss = css({
-  '&:after': resetRules,
-  '&:before': resetRules,
-  ...resetRules
-})
+const boxResetRules = {
+  '*': boxResetBaseRules,
+  '*:after': boxResetBaseRules,
+  '*:before': boxResetBaseRules
+}
+
+const resetRuleScope = `html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video`
+
+const resetCssRules = {
+  /* eslint-disable sort-keys */
+  [resetRuleScope]: {
+    border: 0,
+    // Font: 'inherit',
+    fontSize: '100%',
+    margin: 0,
+    padding: 0,
+    verticalAlign: 'baseline'
+  },
+  'ol,ul': {
+    listStyle: 'none'
+  },
+  table: {
+    borderCollapse: 'collapse',
+    borderSpacing: 0
+  }
+  /* eslint-enable sort-keys */
+}
 
 export default class ThemeProvider extends Component {
   static childContextTypes = {
     matchType: PropTypes.func
   };
+  static defaultProps = {
+    cssReset: true
+  };
   static propTypes = {
     children: PropTypes.node,
+    cssReset: PropTypes.bool,
     matchType: PropTypes.func
   };
   getChildContext () {
@@ -28,8 +66,18 @@ export default class ThemeProvider extends Component {
     }
   }
   render () {
-    return cloneElement(Children.only(this.props.children), {
-      className: resetCss
-    })
+    let rules = {
+      ...boxResetRules
+    }
+    if (this.props.cssReset) {
+      rules = {
+        ...resetCssRules
+      }
+    }
+    return (
+      <GlobalStylesheet rules={rules}>
+        {this.props.children}
+      </GlobalStylesheet>
+    )
   }
 }

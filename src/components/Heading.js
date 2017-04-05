@@ -10,12 +10,15 @@ const LEVELS = [
   'longPrimer' // H6
 ]
 
-const Heading = ({ children, level, ...props }, { theme }) => {
+const Heading = ({ as, children, level, ...props }, { theme }) => {
   let headingLevel = level
   if (typeof level === 'number') {
+    as = as || `h${level}`
     headingLevel = LEVELS[level - 1]
+  } else if (typeof level === 'string' && LEVELS.includes(level)) {
+    as = as || `h${LEVELS.indexOf(level) + 1}`
   }
-  return <Text size={headingLevel} {...props}>{children}</Text>
+  return <Text as={as} size={headingLevel} {...props}>{children}</Text>
 }
 
 Heading.levels = LEVELS
@@ -25,6 +28,7 @@ Heading.defaultProps = {
 }
 
 Heading.propTypes = {
+  as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   children: PropTypes.node,
   level: PropTypes.oneOfType([
     PropTypes.oneOf(LEVELS),

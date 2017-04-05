@@ -46,7 +46,7 @@ function defaultMatchTypeRunner (rules, context, mt) {
 }
 
 const Text = (
-  { children, size, ...props },
+  { as, children, size, ...props },
   { matchType = defaultMatchTypeRunner, ...context }
 ) => {
   let typeClassName
@@ -56,7 +56,7 @@ const Text = (
     )
   }
   return (
-    <Bit className={typeClassName} {...props}>
+    <Bit as={as} className={typeClassName} {...props}>
       {children}
     </Bit>
   )
@@ -70,6 +70,7 @@ Text.contextTypes = {
 }
 
 Text.propTypes = {
+  as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   children: PropTypes.node,
   size: PropTypes.oneOf(Object.keys(TYPOGRAPHY))
 }

@@ -1,6 +1,6 @@
 import { compensateForBorder } from '../util/borderTools'
 import { css } from 'glamor'
-import { PropTypes } from 'react'
+import { createElement, PropTypes } from 'react'
 import { boxModelRuleVerticalRhythm as vr } from '../util/verticalRhythm'
 
 const styles = {
@@ -11,6 +11,8 @@ const styles = {
 
 const Bit = (
   {
+    as = 'div',
+
     bottom,
     left,
     right,
@@ -117,10 +119,10 @@ const Bit = (
     },
     className
   )
-  return (
-    <div className={boxModelClassName} {...props}>
-      {children}
-    </div>
+  return createElement(
+    as,
+    { className: boxModelClassName, ...props },
+    children
   )
 }
 
@@ -130,7 +132,12 @@ Bit.contextTypes = {
   scaleRatio: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 }
 
+Bit.defaultProps = {
+  as: 'div'
+}
+
 Bit.propTypes = {
+  as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   backgroundColor: PropTypes.string,
   borderBottomColor: PropTypes.string,
   borderBottomStyle: PropTypes.string,
