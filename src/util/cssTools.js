@@ -1,3 +1,17 @@
+import { css } from 'glamor'
+import { processStyleName } from 'glamor/lib/CSSPropertyOperations'
+
+// Pre-defined object-fit rules
+export const objectFit = 'contain cover fill scaleDown'.split(' ').reduce((
+  rules,
+  type
+) => ({
+  ...rules,
+  [type]: css({
+    objectFit: processStyleName(type)
+  })
+}), {})
+
 // Convert `value` to a px-based Number
 export function px (value, baseFontSize) {
   if (typeof value === 'number') {
@@ -30,4 +44,8 @@ export function rem (value, baseFontSize) {
     return value / baseFontSize
   }
   throw new Error(`Do not know how to convert ${value} into rems.`)
+}
+
+export function remToPx (value, { baseFontSize }) {
+  return Math.floor(parseInt(value, 10) * baseFontSize)
 }

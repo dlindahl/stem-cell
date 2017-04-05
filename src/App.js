@@ -1,5 +1,6 @@
 import { css } from 'glamor'
 import Heading from './components/Heading'
+import Image from './components/Image'
 import Text from './components/Text'
 import ThemeProvider from './components/ThemeProvider'
 import VerticalRhythm from './components/VerticalRhythm'
@@ -32,15 +33,7 @@ const App = (props) => (
   <ThemeProvider>
     <VerticalRhythm baseline>
       <div className={style.container}>
-        <Heading borderColor="red" borderTopWidth={15} level={1} paddingTop={0}>
-          A Visual Type Scale
-        </Heading>
-        <Heading
-          borderBottomWidth={15}
-          borderColor="purple"
-          level={1}
-          marginBottom={1}
-        >
+        <Heading level={1}>
           A Visual Type Scale
         </Heading>
         <Heading level={2}>
@@ -53,6 +46,31 @@ const App = (props) => (
         <Text size="brevier">A Visual Type Scale</Text>
         <Text size="minion">A Visual Type Scale</Text>
         <Text>BODY: A Visual Type Scale</Text>
+
+        Normal
+        <Image height={7} src="https://placehold.it/350x150" width={16}/>
+        <Image
+          contain
+          height={10}
+          src="https://placehold.it/350x150"
+          srcHeight={150}
+          srcWidth={350}
+          width={20}
+        />
+        <Image
+          height={3}
+          scaleDown
+          src="https://placehold.it/350x150"
+          srcHeight={150}
+          srcWidth={350}
+          width={5}
+        />
+        <Image
+          cover
+          src="https://placehold.it/350x150"
+          srcHeight={150}
+          srcWidth={350}
+        />
       </div>
     </VerticalRhythm>
   </ThemeProvider>

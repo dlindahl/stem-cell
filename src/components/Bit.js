@@ -63,6 +63,7 @@ const Bit = (
 
     backgroundColor,
 
+    nativeProps,
     ...props
   },
   context
@@ -121,7 +122,7 @@ const Bit = (
   )
   return createElement(
     as,
-    { className: boxModelClassName, ...props },
+    { className: boxModelClassName, ...props, ...nativeProps },
     children
   )
 }
@@ -133,7 +134,8 @@ Bit.contextTypes = {
 }
 
 Bit.defaultProps = {
-  as: 'div'
+  as: 'div',
+  nativeProps: {}
 }
 
 Bit.propTypes = {
@@ -172,6 +174,7 @@ Bit.propTypes = {
   maxWidth: PropTypes.number,
   minHeight: PropTypes.number,
   minWidth: PropTypes.number,
+  nativeProps: PropTypes.object,
   padding: PropTypes.number,
   paddingBottom: PropTypes.number,
   paddingHorizontal: PropTypes.number,
