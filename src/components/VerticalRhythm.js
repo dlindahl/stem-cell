@@ -1,6 +1,7 @@
+import { boxModelRuleVerticalRhythm } from '../util/verticalRhythm'
 import { Component, PropTypes } from 'react'
 import { css } from 'glamor'
-import { debounce, pick } from 'lodash'
+import { debounce } from 'lodash'
 import GlobalStylesheet from './GlobalStylesheet'
 import invariant from 'fbjs/lib/invariant'
 
@@ -13,18 +14,18 @@ import invariant from 'fbjs/lib/invariant'
  */
 const DEFAULT_BREAKPOINTS = {
   '(max-width: 319px)': {
-    fontSize: 15,
-    lineHeight: 18 / 14,
+    baseFontSize: 15,
+    lineHeightRatio: 18 / 14,
     scaleRatio: 'minor third'
   },
   '(min-width: 319px) and (max-width: 599px)': {
-    fontSize: 16,
-    lineHeight: 11 / 8,
+    baseFontSize: 16,
+    lineHeightRatio: 11 / 8,
     scaleRatio: 'major third'
   },
   '(min-width: 599px)': {
-    fontSize: 18,
-    lineHeight: 18 / 14,
+    baseFontSize: 18,
+    lineHeightRatio: 18 / 14,
     scaleRatio: 'major third'
   }
 }
@@ -58,7 +59,7 @@ const styles = {
   baseline: css({
     /* eslint-disable max-len */
     backgroundImage: `linear-gradient(to bottom, var(--baselineColor) 1px, transparent 1px)`,
-    backgroundSize: `auto var(--lineHeight)`,
+    backgroundSize: `auto var(--baseline)`,
     /* eslint-enable max-len */
     bottom: 0,
     left: 0,
@@ -73,26 +74,27 @@ const styles = {
 export default class VerticalRhythm extends Component {
   static childContextTypes = {
     baseFontSize: PropTypes.number,
+    baseline: PropTypes.string,
     lineHeightRatio: PropTypes.number,
     scaleRatio: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
   };
   static defaultProps = {
+    baseFontSize: 16,
     baseline: false,
+    baselineColor: 'rgba(255,0,255,0.25)',
     breakpoints: DEFAULT_BREAKPOINTS,
     className: {},
-    color: 'rgba(255,0,255,0.25)',
-    fontSize: 16,
-    lineHeight: 1.5,
+    lineHeightRatio: 1.5,
     scaleRatio: 'diminished fourth'
   };
   static propTypes = {
+    baseFontSize: PropTypes.number,
     baseline: PropTypes.bool,
+    baselineColor: PropTypes.string,
     breakpoints: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
     children: PropTypes.node,
     className: PropTypes.object,
-    color: PropTypes.string,
-    fontSize: PropTypes.number,
-    lineHeight: PropTypes.number,
+    lineHeightRatio: PropTypes.number,
     scaleRatio: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.oneOf(SCALE_RATIOS)
@@ -101,15 +103,13 @@ export default class VerticalRhythm extends Component {
   static breakpoints = DEFAULT_BREAKPOINTS;
   static scaleRatios = SCALE_RATIOS;
   state = {
-    fontSize: null,
-    lineHeight: null,
+    baseFontSize: null,
+    lineHeightRatio: null,
     scaleRatio: null
   };
   getChildContext () {
     return {
-      baseFontSize: this.state.fontSize,
-      lineHeightRatio: this.state.lineHeight,
-      scaleRatio: this.state.scaleRatio
+      ...this.state
     }
   }
   componentWillMount () {
@@ -128,34 +128,39 @@ export default class VerticalRhythm extends Component {
   }
   handleWindowResize (nextProps = {}) {
     const defaultState = {
-      fontSize: nextProps.fontSize || this.props.fontSize,
-      lineHeight: nextProps.lineHeight || this.props.lineHeight,
+      baseFontSize: nextProps.baseFontSize || this.props.baseFontSize,
+      lineHeightRatio: nextProps.lineHeightRatio || this.props.lineHeightRatio,
       scaleRatio: nextProps.scaleRatio || this.props.scaleRatio
+    }
+    let newState = {
+      ...defaultState
     }
     let breakpoints = nextProps.breakpoints
     if (typeof breakpoints === 'undefined') {
       breakpoints = this.props.breakpoints
     }
-    if (breakpoints === false) {
-      return this.setState(defaultState)
-    }
-    // Determine which breakpoints apply to the current viewport
-    const newState = Object.keys(breakpoints).reduce(
-      (state, mq) => {
-        if (window && window.matchMedia) {
-          if (window.matchMedia(mq).matches) {
-            return {
-              ...defaultState,
-              ...pick(breakpoints[mq], 'fontSize', 'lineHeight', 'scaleRatio')
+    if (breakpoints !== false) {
+      // Determine which breakpoints apply to the current viewport
+      newState = Object.keys(breakpoints).reduce(
+        (state, mq) => {
+          if (window && window.matchMedia) {
+            if (window.matchMedia(mq).matches) {
+              return {
+                ...defaultState,
+                ...breakpoints[mq]
+              }
             }
           }
-        }
-        return state
-      },
-      defaultState
-    )
-    invariant(newState.lineHeight !== 1 + 1 / 3, INVALID_LINE_HEIGHT)
-    return this.setState(newState)
+          return state
+        },
+        defaultState
+      )
+    }
+    invariant(newState.lineHeightRatio !== 1 + 1 / 3, INVALID_LINE_HEIGHT)
+    return this.setState({
+      ...newState,
+      baseline: boxModelRuleVerticalRhythm(1, newState)
+    })
   }
   resizeHandler = null;
   render () {
@@ -167,16 +172,17 @@ export default class VerticalRhythm extends Component {
        */
       baseline = <div className={css(styles.baseline)} data-sc-baseline/>
     }
-    const cssVars = {
-      baseline: `${this.state.lineHeight * this.state.fontSize}px`,
-      baselineColor: this.props.color,
-      lineHeight: `${this.state.lineHeight}rem`
-    }
     return (
       <GlobalStylesheet
         rules={{
-          ':root': cssVars,
-          html: pick(this.state, 'fontSize', 'lineHeight')
+          ':root': {
+            ...this.state,
+            baselineColor: this.props.baselineColor
+          },
+          html: {
+            fontSize: this.state.baseFontSize,
+            lineHeight: this.state.baseline
+          }
         }}
       >
         <div className={this.props.className} data-sc-vr>

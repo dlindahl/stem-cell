@@ -22,17 +22,17 @@ storiesOf('Vertical Rhythm', module)
   .add('Visual Guides', () => (
     <VerticalRhythm
       baseline={boolean('Show Lines', true)}
-      color={color('Line Color', 'rgba(255,0,255,0.25)')}
+      baselineColor={color('Line Color', 'rgba(255,0,255,0.25)')}
     >
       Lorem ipsum dolor sit amet.
     </VerticalRhythm>
   ))
   .add('Typographic Configuration', () => (
     <VerticalRhythm
+      baseFontSize={number('Font Size', 16)}
       baseline
       breakpoints={false}
-      fontSize={number('Font Size', 16)}
-      lineHeight={number('Line Height', 1.5)}
+      lineHeightRatio={number('Line Height', 1.5)}
       scaleRatio={select(
         'Scale Ratio',
         VerticalRhythm.scaleRatios,

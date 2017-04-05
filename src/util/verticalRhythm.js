@@ -8,7 +8,11 @@ export function boxModelRuleVerticalRhythm (
   if (!size) {
     return null
   }
-  return `${lineHeightRatio * size}rem`
+  const baseline = Math.floor(lineHeightRatio * baseFontSize)
+  const retval = baseline * size
+  // Compensate for rounding errors that make the return value not divisible
+  const offset = retval % baseline
+  return `${retval - offset}px`
 }
 
 // Calculate typographic values that conforms to the established Vertical Rhythm
@@ -18,10 +22,11 @@ export function typographyVerticalRhythm (
 ) {
   const fontSize = ms(size, scaleRatio)
   const multiplier = Math.ceil(fontSize / lineHeightRatio)
-  // eslint-disable-next-line max-len
-  const lineHeight = `${lineHeightRatio * multiplier}rem`
   return {
     fontSize: `${fontSize}rem`,
-    lineHeight
+    lineHeight: boxModelRuleVerticalRhythm(multiplier, {
+      baseFontSize,
+      lineHeightRatio
+    })
   }
 }

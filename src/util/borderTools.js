@@ -12,7 +12,7 @@ function marginOffset (borderProps, boxModelRules, side) {
   const marginPropKey = `margin${side}`
   const rules = {}
   if (borderProps[borderPropKey]) {
-    rules[marginPropKey] = boxModelRules[marginPropKey] || 'var(--lineHeight)'
+    rules[marginPropKey] = boxModelRules[marginPropKey] || 'var(--baseline)'
     // eslint-disable-next-line max-len
     rules[
       marginPropKey
