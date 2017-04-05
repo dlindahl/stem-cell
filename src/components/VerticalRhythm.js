@@ -2,6 +2,7 @@ import { Component, PropTypes } from 'react'
 import { css } from 'glamor'
 import { debounce, pick } from 'lodash'
 import GlobalStylesheet from './GlobalStylesheet'
+import invariant from 'fbjs/lib/invariant'
 
 /*
  * Default set of breakpoints to adjust the typography based on the size of the
@@ -13,7 +14,7 @@ import GlobalStylesheet from './GlobalStylesheet'
 const DEFAULT_BREAKPOINTS = {
   '(max-width: 319px)': {
     fontSize: 15,
-    lineHeight: 1 + 1 / 3,
+    lineHeight: 18 / 14,
     scaleRatio: 'minor third'
   },
   '(min-width: 319px) and (max-width: 599px)': {
@@ -23,11 +24,16 @@ const DEFAULT_BREAKPOINTS = {
   },
   '(min-width: 599px)': {
     fontSize: 18,
-    lineHeight: 1 + 1 / 3,
+    lineHeight: 18 / 14,
     scaleRatio: 'major third'
   }
 }
-
+const INVALID_LINE_HEIGHT = `Using a line-height of ${1 + 1 / 3} is guaranteed
+to introduce compounding sub-pixel rounding errors that will cause your layout
+to stray from the Vertical Rhythm. It is recommended you use a line-height of
+18 / 14 (${18 / 14}) instead. The difference between the two are slight and the
+calculated sizes are more likely to align with an exact pixel. See also
+http://stackoverflow.com/questions/19669598/forcing-chrome-for-windows-to-respect-sub-pixel-line-heights`
 const SCALE_RATIOS = [
   'minor second',
   'major second',
@@ -148,6 +154,7 @@ export default class VerticalRhythm extends Component {
       },
       defaultState
     )
+    invariant(newState.lineHeight !== 1 + 1 / 3, INVALID_LINE_HEIGHT)
     return this.setState(newState)
   }
   resizeHandler = null;
