@@ -18,7 +18,7 @@ storiesOf('Heading', module)
         {story()}
       </VerticalRhythm>
     </ThemeProvider>
-    ))
+  ))
   .add('Typographic Hierarchy', () => (
     <div>
       <Heading level={1}>Canon</Heading>
