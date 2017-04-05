@@ -1,4 +1,3 @@
-/* eslint-disable react/forbid-component-props */
 import Bit from './Bit'
 import { css } from 'glamor'
 import { PropTypes } from 'react'

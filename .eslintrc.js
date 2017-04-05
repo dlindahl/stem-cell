@@ -94,7 +94,7 @@ module.exports = {
     'prefer-spread': 'error',
     'prefer-template': 'error',
     'quote-props': ['warn', 'as-needed'],
-    'react/forbid-component-props': 'warn',
+    'react/forbid-component-props': 'off',
     'react/jsx-handler-names': 'error',
     'react/jsx-indent': ['error', 2],
     'react/jsx-indent-props': ['error', 2],
