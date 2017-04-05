@@ -154,7 +154,8 @@ export default class VerticalRhythm extends Component {
   render () {
     let baseline = null
     if (this.props.baseline) {
-      /* Render a visual representation of the vertical rhythm baseline
+      /*
+       * Render a visual representation of the vertical rhythm baseline
        * overlayed over the entirety of the page
        */
       baseline = <div className={css(styles.baseline)} data-sc-baseline/>
@@ -166,8 +167,10 @@ export default class VerticalRhythm extends Component {
     }
     return (
       <GlobalStylesheet
-        html={pick(this.state, 'fontSize', 'lineHeight')}
-        vars={cssVars}
+        rules={{
+          ':root': cssVars,
+          html: pick(this.state, 'fontSize', 'lineHeight')
+        }}
       >
         <div className={this.props.className} data-sc-vr>
           {this.props.children}
