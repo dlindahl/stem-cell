@@ -71,6 +71,9 @@ const styles = {
   }),
   baselineShown: css({
     position: 'relative'
+  }),
+  root: css({
+    height: '100%'
   })
 }
 
@@ -120,13 +123,40 @@ export default class VerticalRhythm extends Component {
       window.addEventListener('resize', this.resizeHandler, false)
     }
     this.handleWindowResize()
+    this.attachBaseline(this.props.baseline)
   }
   componentWillReceiveProps (nextProps) {
     this.handleWindowResize(nextProps)
+    this.attachBaseline(nextProps.baseline)
   }
   componentWillUnmount () {
     window.removeEventListener(this.resizeHandler, false)
     this.resizeHandler = null
+    this.detachBaseline()
+  }
+  /*
+   * Render a visual representation of the vertical rhythm baseline
+   * overlayed over the entirety of the page
+   */
+  attachBaseline (showBaseline) {
+    if (this.baselineEl) {
+      if (showBaseline) {
+        return null
+      }
+      return this.detachBaseline()
+    }
+    if (!showBaseline) {
+      return null
+    }
+    this.baselineEl = document.createElement('div')
+    this.baselineEl.setAttribute('class', styles.baseline)
+    this.baselineEl.dataset.scBaseline = true
+    document.body.appendChild(this.baselineEl)
+    return this.baselineEl
+  }
+  detachBaseline () {
+    document.body.removeChild(this.baselineEl)
+    this.baselineEl = null
   }
   handleWindowResize (nextProps = {}) {
     const defaultState = {
@@ -164,18 +194,10 @@ export default class VerticalRhythm extends Component {
       baseline: boxModelRuleVerticalRhythm(1, newState)
     })
   }
+  baselineEl = null;
   resizeHandler = null;
   render () {
-    let baseline = null
-    const classNames = [this.props.className]
-    if (this.props.baseline) {
-      /*
-       * Render a visual representation of the vertical rhythm baseline
-       * overlayed over the entirety of the page
-       */
-      baseline = <div className={css(styles.baseline)} data-sc-baseline/>
-      classNames.unshift(styles.baselineShown)
-    }
+    const classNames = [styles.root, this.props.className]
     return (
       <GlobalStylesheet
         rules={{
@@ -191,7 +213,6 @@ export default class VerticalRhythm extends Component {
       >
         <div className={css(...classNames)} data-sc-vr>
           {this.props.children}
-          {baseline}
         </div>
       </GlobalStylesheet>
     )

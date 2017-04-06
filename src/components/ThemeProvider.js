@@ -32,9 +32,11 @@ const inputRuleScoe = `input[type=button], button, input[type=submit], input[typ
 
 const resetCssRules = {
   /* eslint-disable sort-keys */
+  body: {
+    height: '100%'
+  },
   [resetRuleScope]: {
     border: 0,
-    // Font: 'inherit',
     fontSize: '100%',
     margin: 0,
     padding: 0,
@@ -45,7 +47,7 @@ const resetCssRules = {
     padding: 0,
     font: 'inherit'
   },
-  'ol,ul': {
+  'ol, ul': {
     listStyle: 'none'
   },
   table: {
