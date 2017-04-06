@@ -1,3 +1,4 @@
+import Button from './components/Button'
 import { css } from 'glamor'
 import Heading from './components/Heading'
 import Image from './components/Image'
@@ -43,16 +44,19 @@ const App = (props) => (
         <Heading level={4}>A Visual Type Scale</Heading>
         <Heading level={5}>A Visual Type Scale</Heading>
         <Heading level={6}>A Visual Type Scale</Heading>
-        <Text size="brevier">A Visual Type Scale</Text>
-        <Text size="minion">A Visual Type Scale</Text>
-        <Text>BODY: A Visual Type Scale</Text>
+        <Text inline={false} size="brevier">A Visual Type Scale</Text>
+        <Text inline={false} size="minion">A Visual Type Scale</Text>
+        <Text inline={false}>BODY: A Visual Type Scale</Text>
+        <Button backgroundColor="#0C8558" color="white" size="minion">
+          Test Button
+        </Button>
 
         Normal
-        <Image height={7} src="https://placehold.it/350x150" width={16}/>
+        <Image height={7} src="http://placehold.it/350x150" width={16}/>
         <Image
           contain
           height={10}
-          src="https://placehold.it/350x150"
+          src="http://placehold.it/350x150"
           srcHeight={150}
           srcWidth={350}
           width={20}
@@ -60,14 +64,14 @@ const App = (props) => (
         <Image
           height={3}
           scaleDown
-          src="https://placehold.it/350x150"
+          src="http://placehold.it/350x150"
           srcHeight={150}
           srcWidth={350}
           width={5}
         />
         <Image
           cover
-          src="https://placehold.it/350x150"
+          src="http://placehold.it/350x150"
           srcHeight={150}
           srcWidth={350}
         />

@@ -28,6 +28,8 @@ figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video`
 
+const inputRuleScoe = `input[type=button], button, input[type=submit], input[type=reset], input[type=file]`
+
 const resetCssRules = {
   /* eslint-disable sort-keys */
   [resetRuleScope]: {
@@ -37,6 +39,11 @@ const resetCssRules = {
     margin: 0,
     padding: 0,
     verticalAlign: 'baseline'
+  },
+  [inputRuleScoe]: {
+    margin: 0,
+    padding: 0,
+    font: 'inherit'
   },
   'ol,ul': {
     listStyle: 'none'

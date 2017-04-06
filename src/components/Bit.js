@@ -62,6 +62,7 @@ const Bit = (
     paddingRight = paddingHorizontal,
 
     backgroundColor,
+    color,
 
     nativeProps,
     ...props
@@ -116,7 +117,8 @@ const Bit = (
     },
     styles.root,
     {
-      backgroundColor
+      backgroundColor,
+      color
     },
     className
   )
@@ -161,6 +163,7 @@ Bit.propTypes = {
   bottom: PropTypes.number,
   children: PropTypes.node,
   className: PropTypes.object,
+  color: PropTypes.string,
   height: PropTypes.number,
   left: PropTypes.number,
   margin: PropTypes.number,

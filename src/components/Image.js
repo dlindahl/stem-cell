@@ -96,7 +96,6 @@ const Image = (
     useMap,
     width: srcWidth || remToPx(width, context)
   }
-  console.info(nativeProps)
   return (
     <Bit
       as="figure"

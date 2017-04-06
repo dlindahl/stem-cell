@@ -83,7 +83,6 @@ export default class VerticalRhythm extends Component {
     baseline: false,
     baselineColor: 'rgba(255,0,255,0.25)',
     breakpoints: DEFAULT_BREAKPOINTS,
-    className: {},
     lineHeightRatio: 1.5,
     scaleRatio: 'diminished fourth'
   };
