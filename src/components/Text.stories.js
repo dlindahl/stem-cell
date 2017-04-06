@@ -1,7 +1,12 @@
 import { storiesOf } from '@kadira/storybook'
 import TextComponent from './Text'
 import ThemeProvider from './ThemeProvider'
-import { select, text, withKnobs } from '@kadira/storybook-addon-knobs'
+import {
+  boolean,
+  select,
+  text,
+  withKnobs
+} from '@kadira/storybook-addon-knobs'
 import VerticalRhythm from './VerticalRhythm'
 
 storiesOf('Text', module)
@@ -18,3 +23,20 @@ storiesOf('Text', module)
       {text('Text', 'Lorem ipsum dolor sit amet.')}
     </TextComponent>
   ))
+  .add('Rendering Box', () => {
+    const size = select('Named Size', TextComponent.sizes, 'body')
+    const inline = boolean('Inline Rendering Box', true)
+    return (
+      <div>
+        <TextComponent inline={inline} size={size}>
+          Preamble
+        </TextComponent>
+        <TextComponent inline={inline} size={size}>
+          Inline: {inline.toString()} Size: {size}
+        </TextComponent>
+        <TextComponent inline={inline} size={size}>
+          Epilogue
+        </TextComponent>
+      </div>
+    )
+  })
