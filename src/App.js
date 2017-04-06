@@ -2,6 +2,7 @@ import Button from './components/Button'
 import { css } from 'glamor'
 import Heading from './components/Heading'
 import Image from './components/Image'
+import Paragraph from './components/Paragraph'
 import Text from './components/Text'
 import ThemeProvider from './components/ThemeProvider'
 import VerticalRhythm from './components/VerticalRhythm'
@@ -50,6 +51,10 @@ const App = (props) => (
         <Button backgroundColor="#0C8558" color="white" size="minion">
           Test Button
         </Button>
+
+        <Paragraph>
+          Test Paragraph
+        </Paragraph>
 
         Normal
         <Image height={7} src="http://placehold.it/350x150" width={16}/>
