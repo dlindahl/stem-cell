@@ -68,6 +68,9 @@ const styles = {
     right: 0,
     top: 0,
     zIndex: 16777271
+  }),
+  baselineShown: css({
+    position: 'relative'
   })
 }
 
@@ -164,12 +167,14 @@ export default class VerticalRhythm extends Component {
   resizeHandler = null;
   render () {
     let baseline = null
+    const classNames = [this.props.className]
     if (this.props.baseline) {
       /*
        * Render a visual representation of the vertical rhythm baseline
        * overlayed over the entirety of the page
        */
       baseline = <div className={css(styles.baseline)} data-sc-baseline/>
+      classNames.unshift(styles.baselineShown)
     }
     return (
       <GlobalStylesheet
@@ -184,7 +189,7 @@ export default class VerticalRhythm extends Component {
           }
         }}
       >
-        <div className={this.props.className} data-sc-vr>
+        <div className={css(...classNames)} data-sc-vr>
           {this.props.children}
           {baseline}
         </div>
