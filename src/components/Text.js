@@ -73,7 +73,7 @@ const Text = (
   return (
     <Bit
       as={as}
-      className={css(inlineClassName, className, typeClassName)}
+      className={`${css(inlineClassName, typeClassName)} ${className}`}
       {...props}
     >
       {children}
@@ -95,7 +95,7 @@ Text.defaultProps = {
 Text.propTypes = {
   as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   children: PropTypes.node,
-  className: PropTypes.object,
+  className: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   inline: PropTypes.bool,
   size: PropTypes.oneOf(Object.keys(TYPOGRAPHY))
 }

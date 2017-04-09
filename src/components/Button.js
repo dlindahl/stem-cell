@@ -37,14 +37,15 @@ const style = {
   })
 }
 
-const Button = ({ backgroundColor, color, children, ...props }) => (
+const Button = ({ backgroundColor, className, color, children, ...props }) => (
   <Text
     as="button"
     backgroundColor={backgroundColor}
     className={css(
       style.root,
       style.inlineTextFlow(props),
-      style.interactivity({ backgroundColor, color })
+      style.interactivity({ backgroundColor, color }),
+      className
     )}
     color={color}
     {...props}
@@ -61,6 +62,7 @@ Button.defaultProps = {
 Button.propTypes = {
   backgroundColor: PropTypes.string,
   children: PropTypes.node,
+  className: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   color: PropTypes.string
 }
 

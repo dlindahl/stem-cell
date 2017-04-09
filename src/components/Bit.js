@@ -122,9 +122,14 @@ const Bit = (
     },
     className
   )
+  // TODO: Add stemcell version of cx for easy addition of various classes (or look if glamor has its own)
   return createElement(
     as,
-    { className: boxModelClassName, ...props, ...nativeProps },
+    {
+      className: `${boxModelClassName} ${className}`,
+      ...props,
+      ...nativeProps
+    },
     children
   )
 }
@@ -162,7 +167,7 @@ Bit.propTypes = {
   borderWidth: PropTypes.number,
   bottom: PropTypes.number,
   children: PropTypes.node,
-  className: PropTypes.object,
+  className: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   color: PropTypes.string,
   height: PropTypes.number,
   left: PropTypes.number,
