@@ -19,14 +19,32 @@ const style = {
         return {}
     }
   },
-  interactivity ({ color, backgroundColor }) {
+  interactivity (
+    {
+      color,
+      backgroundColor,
+      borderBottomColor,
+      borderLeftColor,
+      borderRightColor,
+      borderTopColor
+    }
+  ) {
+    // TODO: make this re-usable for Links or move to Text and add `interactive` attribute which can add 'pointer'
     return css({
       ':focus': {
         backgroundColor: focusColor(backgroundColor),
+        borderBottomColor: focusColor(borderBottomColor),
+        borderLeftColor: focusColor(borderLeftColor),
+        borderRightColor: focusColor(borderRightColor),
+        borderTopColor: focusColor(borderTopColor),
         color: focusColor(color)
       },
       ':hover': {
         backgroundColor: hoverColor(backgroundColor),
+        borderBottomColor: focusColor(borderBottomColor),
+        borderLeftColor: focusColor(borderLeftColor),
+        borderRightColor: focusColor(borderRightColor),
+        borderTopColor: focusColor(borderTopColor),
         color: hoverColor(color)
       }
     })

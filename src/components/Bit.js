@@ -52,6 +52,13 @@ const Bit = (
     borderRightStyle = borderStyle,
     borderBottomStyle = borderStyle,
     borderLeftStyle = borderStyle,
+    borderRadius,
+    borderBottomRadius = borderRadius,
+    borderTopRadius = borderRadius,
+    borderBottomLeftRadius = borderBottomRadius,
+    borderBottomRightRadius = borderBottomRadius,
+    borderTopLeftRadius = borderTopRadius,
+    borderTopRightRadius = borderTopRadius,
 
     padding,
     paddingVertical = padding,
@@ -97,19 +104,19 @@ const Bit = (
     {}
   )
   const borderWidthRules = compensateForBorder(boxModelRules, context, {
-    borderBottomColor,
     borderBottomStyle,
     borderBottomWidth,
-    borderLeftColor,
     borderLeftStyle,
     borderLeftWidth,
-    borderRightColor,
     borderRightStyle,
     borderRightWidth,
-    borderTopColor,
     borderTopStyle,
     borderTopWidth
   })
+  /*
+   * Merge all the styles and convert to string so that the `as` property can
+   * interop with other 3rd party components
+   */
   const boxModelClassName = css(
     {
       ...boxModelRules,
@@ -118,9 +125,16 @@ const Bit = (
     styles.root,
     {
       backgroundColor,
+      borderBottomColor,
+      borderBottomLeftRadius,
+      borderBottomRightRadius,
+      borderLeftColor,
+      borderRightColor,
+      borderTopColor,
+      borderTopLeftRadius,
+      borderTopRightRadius,
       color
-    },
-    className
+    }
   )
   // TODO: Add stemcell version of cx for easy addition of various classes (or look if glamor has its own)
   return createElement(
@@ -149,6 +163,15 @@ Bit.propTypes = {
   as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   backgroundColor: PropTypes.string,
   borderBottomColor: PropTypes.string,
+  borderBottomLeftRadius: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string
+  ]),
+  borderBottomRadius: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  borderBottomRightRadius: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string
+  ]),
   borderBottomStyle: PropTypes.string,
   borderBottomWidth: PropTypes.number,
   borderColor: PropTypes.string,
@@ -156,11 +179,21 @@ Bit.propTypes = {
   borderLeftColor: PropTypes.string,
   borderLeftStyle: PropTypes.string,
   borderLeftWidth: PropTypes.number,
+  borderRadius: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   borderRightColor: PropTypes.string,
   borderRightStyle: PropTypes.string,
   borderRightWidth: PropTypes.number,
   borderStyle: PropTypes.string,
   borderTopColor: PropTypes.string,
+  borderTopLeftRadius: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string
+  ]),
+  borderTopRadius: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  borderTopRightRadius: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string
+  ]),
   borderTopStyle: PropTypes.string,
   borderTopWidth: PropTypes.number,
   borderVertical: PropTypes.number,
