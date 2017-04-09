@@ -109,6 +109,7 @@
     "react": "^15.4.2",
     "react-dev-utils": "^0.5.2",
     "react-dom": "^15.4.2",
+    "react-helmet": "^5.0.2",
     "rimraf": "^2.6.1",
     "url-loader": "0.5.7",
     "webpack": "1.14.0",
@@ -119,7 +120,8 @@
   "peerDependencies": {
     "glamor": "^2.20.24",
     "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "react-dom": "^15.4.2",
+    "react-helmet": "^5.0.2"
   },
   "jest": {
     "collectCoverageFrom": [

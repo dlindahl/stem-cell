@@ -1,7 +1,14 @@
-import { Component, PropTypes } from 'react'
+import { css } from 'glamor'
+import React, { PropTypes } from 'react'
 import { createMarkupForStyles } from 'glamor/lib/CSSPropertyOperations'
-import { StyleSheet } from '../util/glamorMonkeyPatches'
+import { Helmet } from 'react-helmet'
 import { toPairs } from 'lodash'
+
+const style = {
+  wrapper: css({
+    height: '100%'
+  })
+}
 
 function serialize (scope, rules) {
   if (!scope) {
@@ -19,54 +26,28 @@ function serialize (scope, rules) {
   return `${scope} { ${createMarkupForStyles(rules)} }`
 }
 
-export default class GlobalStylesheet extends Component {
-  static defaultProps = {
-    rules: []
-  };
-  static propTypes = {
-    children: PropTypes.node,
-    rules: PropTypes.object
-  };
-  state = {
-    globalRules: []
-  };
-  componentWillMount () {
-    this.stylesheet = new StyleSheet()
-    this.stylesheet.inject()
-    const globalRules = toPairs(this.props.rules)
-      .reduce((rules, [scope, rule]) => [...rules, serialize(scope, rule)], [])
-      .map((rule) => this.stylesheet.insert(rule))
-    this.setState({ globalRules })
-  }
-  componentWillReceiveProps (nextProps) {
-    const nextRules = toPairs(nextProps.rules)
-    const globalRules = Array.from(
-      Array(Math.max(this.state.globalRules.length, nextRules.length))
-    )
-      .reduce(
-        (rules, _, i) => {
-          const [scope, rule] = nextRules[i]
-          return [...rules, serialize(scope, rule)]
-        },
-        []
-      )
-      .map((rule, i) => {
-        const sheetIdx = this.state.globalRules[i]
-        if (sheetIdx === undefined) {
-          return this.stylesheet.insert(rule)
-        }
-        this.stylesheet.replace(sheetIdx, rule)
-        return sheetIdx
-      })
-    this.setState({ globalRules })
-  }
-  componentWillUnmount () {
-    this.state.globalRules.forEach((sheetIdx) => {
-      this.stylesheet.replace(sheetIdx, '')
-    })
-  }
-  stylesheet = null;
-  render () {
-    return this.props.children
-  }
+const GlobalStylesheet = ({ children, rules, ...props }) => {
+  const globalRules = toPairs(rules).reduce(
+    (ruleSet, [scope, rule]) => [...ruleSet, serialize(scope, rule)],
+    []
+  )
+  return (
+    <div className={style.wrapper} data-sc-global>
+      <Helmet>
+        <style>{globalRules.join('\n')}</style>
+      </Helmet>
+      {children}
+    </div>
+  )
 }
+
+GlobalStylesheet.defaultProps = {
+  rules: []
+}
+
+GlobalStylesheet.propTypes = {
+  children: PropTypes.node,
+  rules: PropTypes.object
+}
+
+export default GlobalStylesheet
