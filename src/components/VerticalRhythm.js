@@ -154,6 +154,8 @@ export default class VerticalRhythm extends Component {
     this.baselineEl = document.createElement('div')
     this.baselineEl.setAttribute('class', styles.baseline)
     this.baselineEl.dataset.scBaseline = true
+    this.initialBodyPosition = document.body.style.position
+    document.body.style.position = 'relative'
     document.body.appendChild(this.baselineEl)
     return this.baselineEl
   }
@@ -162,6 +164,8 @@ export default class VerticalRhythm extends Component {
       return
     }
     document.body.removeChild(this.baselineEl)
+    document.body.style.position = this.initialBodyPosition
+    this.initialBodyPosition = null
     this.baselineEl = null
   }
   handleWindowResize (nextProps = {}) {
@@ -201,6 +205,7 @@ export default class VerticalRhythm extends Component {
     })
   }
   baselineEl = null;
+  initialBodyPosition = null;
   resizeHandler = null;
   render () {
     const classNames = [styles.root, this.props.className]
