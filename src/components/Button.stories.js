@@ -28,7 +28,7 @@ storiesOf('Button', module)
       <Button
         backgroundColor={color('Button Color', 'silver')}
         color={color('Label Color', 'black')}
-        height={number('Height', 0)}
+        height={number('Height', 1)}
         onClick={action('button-click')}
         paddingHorizontal={number('Horizontal Padding', 0)}
         paddingVertical={number('Vertical Padding', 0)}
