@@ -70,6 +70,7 @@ export function darken (baseColor, steps) {
   const newValue = c.value() - c.value() * delta
 
   return c
+    .alpha(1.0)
     .hue(lowerLuminosity(c.hue(), delta))
     .saturationv(newSaturation)
     .value(newValue)
@@ -109,6 +110,7 @@ export function lighten (baseColor, steps) {
   const newValue = c.value() + c.value() * delta
 
   return c
+    .alpha(1.0)
     .hue(raiseLuminosity(c.hue(), delta))
     .saturationv(newSaturation)
     .value(newValue)
