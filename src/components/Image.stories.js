@@ -1,7 +1,3 @@
-import { storiesOf } from '@kadira/storybook'
-import Image from './Image'
-import ThemeProvider from './ThemeProvider'
-import VerticalRhythm from './VerticalRhythm'
 import {
   boolean,
   color,
@@ -10,6 +6,11 @@ import {
   text,
   withKnobs
 } from '@kadira/storybook-addon-knobs'
+import { storiesOf } from '@kadira/storybook'
+import Image from './Image'
+import React from 'react'
+import ThemeProvider from './ThemeProvider'
+import VerticalRhythm from './VerticalRhythm'
 
 storiesOf('Image', module)
   .addDecorator(withKnobs)

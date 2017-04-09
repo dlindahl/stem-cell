@@ -1,11 +1,13 @@
-import Button from './components/Button'
+import Button from '../src/components/Button'
 import { css } from 'glamor'
-import Heading from './components/Heading'
-import Image from './components/Image'
-import Paragraph from './components/Paragraph'
-import Text from './components/Text'
-import ThemeProvider from './components/ThemeProvider'
-import VerticalRhythm from './components/VerticalRhythm'
+import Heading from '../src/components/Heading'
+import Image from '../src/components/Image'
+import Paragraph from '../src/components/Paragraph'
+import React from 'react'
+import Rule from '../src/components/Rule'
+import Text from '../src/components/Text'
+import ThemeProvider from '../src/components/ThemeProvider'
+import VerticalRhythm from '../src/components/VerticalRhythm'
 
 const spin = css.keyframes('spin', {
   from: { transform: 'rotate(0deg)' },

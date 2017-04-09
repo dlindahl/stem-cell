@@ -1,6 +1,6 @@
 import Bit from './Bit'
 import { css } from 'glamor'
-import { PropTypes } from 'react'
+import React, { PropTypes } from 'react'
 import { rem } from '../util/cssTools'
 import { typographyVerticalRhythm as vr } from '../util/verticalRhythm'
 

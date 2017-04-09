@@ -1,10 +1,9 @@
-import App from './App'
-import ReactDOM from 'react-dom'
-import { css } from 'glamor'
-
-css.global('html, body', {
-  margin: 0,
-  padding: 0
-})
-
-ReactDOM.render(<App/>, document.getElementById('root'))
+export { default as Bit } from './components/Bit'
+export { default as Button } from './components/Button'
+export { default as GlobalStylesheet } from './components/GlobalStylesheet'
+export { default as Heading } from './components/Heading'
+export { default as Image } from './components/Image'
+export { default as Paragraph } from './components/Paragraph'
+export { default as Text } from './components/Text'
+export { default as ThemeProvider } from './components/ThemeProvider'
+export { default as VerticalRhythm } from './components/VerticalRhythm'

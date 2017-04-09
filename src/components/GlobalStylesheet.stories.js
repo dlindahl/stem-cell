@@ -1,5 +1,6 @@
 import GlobalStylesheet from './GlobalStylesheet'
 import { object, text, withKnobs } from '@kadira/storybook-addon-knobs'
+import React from 'react'
 import { storiesOf } from '@kadira/storybook'
 
 storiesOf('GlobalStylesheet', module)

@@ -7,9 +7,10 @@ import {
   withKnobs
 } from '@kadira/storybook-addon-knobs'
 import Heading from './Heading'
+import React from 'react'
 import { storiesOf } from '@kadira/storybook'
-import ThemeProvider from './ThemeProvider'
 import Text from './Text'
+import ThemeProvider from './ThemeProvider'
 import VerticalRhythm from './VerticalRhythm'
 
 storiesOf('Vertical Rhythm', module)

@@ -67,15 +67,15 @@ function getServedPath (appPackageJson) {
 // Config after eject: we're in ./config/
 module.exports = {
   appBuild: resolveApp('build'),
+  appExample: resolveApp('example'), // The project's example code
   appHtml: resolveApp('public/index.html'),
-  appIndexJs: resolveApp('src/index.js'),
+  appIndexJs: resolveApp('example/index.js'), // The project's example app entry
   appNodeModules: resolveApp('node_modules'),
   appPackageJson: resolveApp('package.json'),
   appPublic: resolveApp('public'),
-  appSrc: resolveApp('src'),
+  appSrc: resolveApp('src'), // The project's source code
   nodePaths,
   publicUrl: getPublicUrl(resolveApp('package.json')),
   servedPath: getServedPath(resolveApp('package.json')),
-  testsSetup: resolveApp('src/setupTests.js'),
   yarnLockFile: resolveApp('yarn.lock')
 }

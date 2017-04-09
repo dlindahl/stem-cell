@@ -1,12 +1,13 @@
-import { storiesOf } from '@kadira/storybook'
-import TextComponent from './Text'
-import ThemeProvider from './ThemeProvider'
 import {
   boolean,
   select,
   text,
   withKnobs
 } from '@kadira/storybook-addon-knobs'
+import React from 'react'
+import { storiesOf } from '@kadira/storybook'
+import TextComponent from './Text'
+import ThemeProvider from './ThemeProvider'
 import VerticalRhythm from './VerticalRhythm'
 
 storiesOf('Text', module)

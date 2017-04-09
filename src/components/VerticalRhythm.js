@@ -1,5 +1,5 @@
 import { boxModelRuleVerticalRhythm } from '../util/verticalRhythm'
-import { Component, PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { css } from 'glamor'
 import { debounce } from 'lodash'
 import GlobalStylesheet from './GlobalStylesheet'

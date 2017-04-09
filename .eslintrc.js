@@ -118,6 +118,7 @@ module.exports = {
         afterOpening: 'never'
       }
     ],
+    'react/jsx-uses-react': 'error',
     'react/jsx-wrap-multilines': 'error',
     'react/no-children-prop': 'warn',
     'react/no-unknown-property': 'warn',
@@ -132,7 +133,7 @@ module.exports = {
     'react/no-unused-prop-types': 'warn',
     'react/prefer-es6-class': 'error',
     'react/prefer-stateless-function': 'warn',
-    'react/react-in-jsx-scope': 'off',
+    'react/react-in-jsx-scope': 'error',
     'react/require-optimization': 'off', // TODO: Enable
     'react/self-closing-comp': 'error',
     'react/sort-comp': 'warn',

@@ -2,7 +2,7 @@ import Bit from './Bit'
 import { css } from 'glamor'
 import invariant from 'fbjs/lib/invariant'
 import { objectFit, pxToRem, remToPx } from '../util/cssTools'
-import { PropTypes } from 'react'
+import React, { PropTypes } from 'react'
 
 const MISSING_DIMS = `The Image component requires a size or width/height value
 in order to properly align the image to the vertical rhythm baseline. If the

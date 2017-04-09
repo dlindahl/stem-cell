@@ -85,7 +85,7 @@ module.exports = {
       },
       // Process JS with Babel.
       {
-        include: paths.appSrc,
+        include: [paths.appSrc, paths.appExample],
         loader: 'babel',
         query: {
           // This is a feature of `babel-loader` for webpack (not Babel itself).
@@ -108,10 +108,6 @@ module.exports = {
           name: 'static/media/[name].[hash:8].[ext]'
         },
         test: /\.svg$/
-      },
-      {
-        loader: 'expose?React',
-        test: require.resolve('react')
       }
       // ** STOP ** Are you adding a new loader?
       // Remember to add the new extension(s) to the "url" loader exclusion list

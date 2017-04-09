@@ -1,7 +1,8 @@
-import { storiesOf } from '@kadira/storybook'
 import Bit from './Bit'
-import ThemeProvider from './ThemeProvider'
 import { color, number, text, withKnobs } from '@kadira/storybook-addon-knobs'
+import React from 'react'
+import { storiesOf } from '@kadira/storybook'
+import ThemeProvider from './ThemeProvider'
 import VerticalRhythm from './VerticalRhythm'
 
 storiesOf('Bit', module)

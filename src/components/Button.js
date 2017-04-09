@@ -1,7 +1,7 @@
 import { css } from 'glamor'
 import { focusColor, hoverColor } from '../util/colorTheory'
 import Text from './Text'
-import { PropTypes } from 'react'
+import React, { PropTypes } from 'react'
 
 const style = {
   baselineRealignment: css({

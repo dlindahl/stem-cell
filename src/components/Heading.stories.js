@@ -1,7 +1,3 @@
-import { storiesOf } from '@kadira/storybook'
-import Heading from './Heading'
-import ThemeProvider from './ThemeProvider'
-import VerticalRhythm from './VerticalRhythm'
 import {
   color,
   number,
@@ -9,6 +5,11 @@ import {
   text,
   withKnobs
 } from '@kadira/storybook-addon-knobs'
+import Heading from './Heading'
+import React from 'react'
+import { storiesOf } from '@kadira/storybook'
+import ThemeProvider from './ThemeProvider'
+import VerticalRhythm from './VerticalRhythm'
 
 storiesOf('Heading', module)
   .addDecorator(withKnobs)

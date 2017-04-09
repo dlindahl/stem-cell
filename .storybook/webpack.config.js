@@ -10,12 +10,7 @@
  */
 module.exports = {
   module: {
-    loaders: [
-      {
-        loader: 'expose?React',
-        test: require.resolve('react')
-      }
-    ]
+    loaders: []
   },
   plugins: [
     // Your custom plugins

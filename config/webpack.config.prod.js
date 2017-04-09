@@ -54,7 +54,7 @@ module.exports = {
       },
       // Process JS with Babel.
       {
-        include: paths.appSrc,
+        include: [paths.appSrc, paths.appExample],
         loader: 'babel',
         test: /\.(js|jsx)$/
       },
@@ -71,10 +71,6 @@ module.exports = {
           name: 'static/media/[name].[hash:8].[ext]'
         },
         test: /\.svg$/
-      },
-      {
-        loader: 'expose?React',
-        test: require.resolve('react')
       }
       /*
        * ** STOP ** Are you adding a new loader?
@@ -86,7 +82,7 @@ module.exports = {
     // It's important to do this before Babel processes the JS.
     preLoaders: [
       {
-        include: paths.appSrc,
+        include: [paths.appSrc, paths.appExample],
         loader: 'eslint',
         test: /\.(js|jsx)$/
       }

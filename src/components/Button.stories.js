@@ -1,9 +1,6 @@
 import { action, storiesOf } from '@kadira/storybook'
 import Bit from './Bit'
 import Button from './Button'
-import TextComponent from './Text'
-import ThemeProvider from './ThemeProvider'
-import VerticalRhythm from './VerticalRhythm'
 import {
   color,
   number,
@@ -11,6 +8,10 @@ import {
   text,
   withKnobs
 } from '@kadira/storybook-addon-knobs'
+import React from 'react'
+import TextComponent from './Text'
+import ThemeProvider from './ThemeProvider'
+import VerticalRhythm from './VerticalRhythm'
 
 storiesOf('Button', module)
   .addDecorator(withKnobs)
