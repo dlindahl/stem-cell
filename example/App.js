@@ -50,6 +50,9 @@ const App = (props) => (
         <Text inline={false} size="brevier">A Visual Type Scale</Text>
         <Text inline={false} size="minion">A Visual Type Scale</Text>
         <Text inline={false}>BODY: A Visual Type Scale</Text>
+
+        <Rule/>
+
         <Button backgroundColor="#0C8558" color="white" size="minion">
           Test Button
         </Button>
