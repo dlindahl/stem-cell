@@ -58,6 +58,12 @@ export function darken (baseColor, steps) {
   if (!baseColor) {
     return baseColor
   }
+  if (baseColor.startsWith('var(--')) {
+    console.warn(
+      `TODO: Support CSS Variables by appending a prefix such as '--darken-n'`
+    )
+    return baseColor
+  }
   const c = Color(baseColor)
   const delta = ms(steps) / 100
   const newSaturation = c.saturationv() + c.saturationv() * delta
@@ -89,6 +95,12 @@ export function hoverColor (baseColor) {
 
 export function lighten (baseColor, steps) {
   if (!baseColor) {
+    return baseColor
+  }
+  if (baseColor.startsWith('var(--')) {
+    console.warn(
+      `TODO: Support CSS Variables by appending a prefix such as '--lighten-n'`
+    )
     return baseColor
   }
   const c = Color(baseColor)
