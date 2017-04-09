@@ -50,6 +50,9 @@ const style = {
     })
   },
   root: css({
+    ':hover': {
+      textDecoration: 'none'
+    },
     cursor: 'pointer',
     verticalAlign: 'middle'
   })
