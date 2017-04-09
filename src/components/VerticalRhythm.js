@@ -118,7 +118,7 @@ export default class VerticalRhythm extends Component {
     }
   }
   componentWillMount () {
-    if (window && window.matchMedia) {
+    if (typeof window !== 'undefined' && window.matchMedia) {
       this.resizeHandler = debounce(this.handleWindowResize.bind(this), 150)
       window.addEventListener('resize', this.resizeHandler, false)
     }
@@ -139,6 +139,9 @@ export default class VerticalRhythm extends Component {
    * overlayed over the entirety of the page
    */
   attachBaseline (showBaseline) {
+    if (typeof document === 'undefined') {
+      return null
+    }
     if (this.baselineEl) {
       if (showBaseline) {
         return null
@@ -155,6 +158,9 @@ export default class VerticalRhythm extends Component {
     return this.baselineEl
   }
   detachBaseline () {
+    if (typeof document === 'undefined') {
+      return
+    }
     document.body.removeChild(this.baselineEl)
     this.baselineEl = null
   }
@@ -175,7 +181,7 @@ export default class VerticalRhythm extends Component {
       // Determine which breakpoints apply to the current viewport
       newState = Object.keys(breakpoints).reduce(
         (state, mq) => {
-          if (window && window.matchMedia) {
+          if (typeof window !== 'undefined' && window.matchMedia) {
             if (window.matchMedia(mq).matches) {
               return {
                 ...defaultState,
