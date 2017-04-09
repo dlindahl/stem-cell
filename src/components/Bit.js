@@ -140,7 +140,7 @@ const Bit = (
   return createElement(
     as,
     {
-      className: `${boxModelClassName} ${className}`,
+      className: `${boxModelClassName} ${className || ''}`,
       ...props,
       ...nativeProps
     },

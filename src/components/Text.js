@@ -73,7 +73,7 @@ const Text = (
   return (
     <Bit
       as={as}
-      className={`${css(inlineClassName, typeClassName)} ${className}`}
+      className={`${css(inlineClassName, typeClassName)} ${className || ''}`}
       {...props}
     >
       {children}
