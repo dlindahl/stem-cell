@@ -5,8 +5,8 @@ export function boxModelRuleVerticalRhythm (
   size,
   { baseFontSize, lineHeightRatio }
 ) {
-  if (!size) {
-    return null
+  if (size === undefined || size == null) {
+    return size
   }
   const baseline = Math.floor(lineHeightRatio * baseFontSize)
   const retval = baseline * size
