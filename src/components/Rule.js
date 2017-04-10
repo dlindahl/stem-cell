@@ -28,7 +28,7 @@ const Rule = (
   }
   const style = css({
     height: size,
-    marginBottom: `calc(${vr(marginBottom, context)} - ${size}px)`,
+    marginBottom: vr(marginBottom, context) - size,
     marginTop: vr(marginTop, context)
   })
   return (

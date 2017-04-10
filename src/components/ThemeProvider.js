@@ -32,9 +32,6 @@ const inputRuleScoe = `input[type=button], button, input[type=submit], input[typ
 
 const resetCssRules = {
   /* eslint-disable sort-keys */
-  'html, body': {
-    height: '100%'
-  },
   [resetRuleScope]: {
     border: 0,
     fontSize: '100%',

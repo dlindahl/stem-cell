@@ -69,11 +69,8 @@ const styles = {
     top: 0,
     zIndex: 16777271
   }),
-  baselineShown: css({
-    position: 'relative'
-  }),
   root: css({
-    height: '100%'
+    height: 'auto'
   })
 }
 
@@ -154,7 +151,10 @@ export default class VerticalRhythm extends Component {
     this.baselineEl = document.createElement('div')
     this.baselineEl.setAttribute('class', styles.baseline)
     this.baselineEl.dataset.scBaseline = true
-    this.initialBodyPosition = document.body.style.position
+    const bodyStyles = document.body.style
+    this.initialBodyHeight = bodyStyles.height
+    this.initialBodyPosition = bodyStyles.position
+    document.body.style.height = 'auto'
     document.body.style.position = 'relative'
     document.body.appendChild(this.baselineEl)
     return this.baselineEl
@@ -164,7 +164,9 @@ export default class VerticalRhythm extends Component {
       return
     }
     document.body.removeChild(this.baselineEl)
+    document.body.style.height = this.initialBodyHeight
     document.body.style.position = this.initialBodyPosition
+    this.initialBodyHeight = null
     this.initialBodyPosition = null
     this.baselineEl = null
   }
@@ -201,10 +203,11 @@ export default class VerticalRhythm extends Component {
     invariant(newState.lineHeightRatio !== 1 + 1 / 3, INVALID_LINE_HEIGHT)
     return this.setState({
       ...newState,
-      baseline: boxModelRuleVerticalRhythm(1, newState)
+      baseline: `${boxModelRuleVerticalRhythm(1, newState)}px`
     })
   }
   baselineEl = null;
+  initialBodyHeight = null;
   initialBodyPosition = null;
   resizeHandler = null;
   render () {

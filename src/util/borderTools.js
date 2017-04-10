@@ -1,34 +1,37 @@
-import { capitalize, pick } from 'lodash'
+import { pick } from 'lodash'
 
 /*
  * Offsets the element to compensate for the border width by subtracting the
- * pixel-based border widths from the rem-based margin widths. This provides the
- * benefit of re-aligning the element's content to the grid and forcing the
- * border to lay *outside* the grid.
+ * vertical border widths from the vertical positioning values. This provides
+ * the benefit of re-aligning the element's content to the grid and forcing the
+ * border to lay *outside* the grid. Using relative positioning allows these
+ * offsets to work better when margin collapsing is at play.
  */
-function marginOffset (borderProps, boxModelRules, side) {
-  side = capitalize(side)
-  const borderPropKey = `border${side}Width`
-  const marginPropKey = `margin${side}`
-  const rules = {}
-  if (borderProps[borderPropKey]) {
-    rules[marginPropKey] = boxModelRules[marginPropKey] || 'var(--baseline)'
-    // eslint-disable-next-line max-len
-    rules[
-      marginPropKey
-    ] = `calc(${rules[marginPropKey]} - ${borderProps[borderPropKey]}px)`
+function borderOffset ({ borderBottomWidth, borderTopWidth }, boxModelRules) {
+  const offsets = {}
+  if (borderTopWidth) {
+    offsets.position = 'relative'
+    offsets.top = boxModelRules.top || 0 - borderTopWidth
+    offsets.marginBottom = parseInt(boxModelRules.marginBottom || 0, 10) -
+      borderTopWidth
   }
-  return rules
+  if (borderBottomWidth) {
+    offsets.position = 'relative'
+    offsets.marginBottom = (offsets.marginBottom ||
+      boxModelRules.marginBottom ||
+      0) - borderBottomWidth
+  }
+  return {
+    ...boxModelRules,
+    ...offsets
+  }
 }
 
 // Adjusts margin and padding to compensate for arbitrary border width values
 export function compensateForBorder (boxModelRules, context, borderProps) {
   return {
     ...borderProps,
-    ...marginOffset(borderProps, boxModelRules, 'top'),
-    ...marginOffset(borderProps, boxModelRules, 'right'),
-    ...marginOffset(borderProps, boxModelRules, 'bottom'),
-    ...marginOffset(borderProps, boxModelRules, 'right'),
+    ...borderOffset(borderProps, boxModelRules),
     ...pick(
       boxModelRules,
       'paddingTop',

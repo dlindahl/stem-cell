@@ -12,7 +12,7 @@ export function boxModelRuleVerticalRhythm (
   const retval = baseline * size
   // Compensate for rounding errors that make the return value not divisible
   const offset = retval % baseline
-  return `${retval - offset}px`
+  return retval - offset
 }
 
 // Calculate typographic values that conforms to the established Vertical Rhythm
@@ -24,9 +24,9 @@ export function typographyVerticalRhythm (
   const multiplier = Math.ceil(fontSize / lineHeightRatio)
   return {
     fontSize: `${fontSize}rem`,
-    lineHeight: boxModelRuleVerticalRhythm(multiplier, {
+    lineHeight: `${boxModelRuleVerticalRhythm(multiplier, {
       baseFontSize,
       lineHeightRatio
-    })
+    })}px`
   }
 }
