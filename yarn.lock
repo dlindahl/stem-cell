@@ -3071,6 +3071,12 @@ html-minifier@^3.1.0:
     relateurl "0.2.x"
     uglify-js "2.8.x"
 
+html-parse-stringify@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/html-parse-stringify/-/html-parse-stringify-1.0.2.tgz#1208e98cd7430ad7efb12e1e7acee9214fd22283"
+  dependencies:
+    void-elements "^1.0.0"
+
 html-webpack-plugin@2.24.0:
   version "2.24.0"
   resolved "https://registry.yarnpkg.com/html-webpack-plugin/-/html-webpack-plugin-2.24.0.tgz#53697cea79a9f3cd1f8c239ac71f949d5673cacb"
@@ -6310,6 +6316,10 @@ vm-browserify@0.0.4:
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-0.0.4.tgz#5d7ea45bbef9e4a6ff65f95438e0a87c357d5a73"
   dependencies:
     indexof "0.0.1"
+
+void-elements@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-1.0.0.tgz#6e5db1e35d591f5ac690ce1a340f793a817b2c2a"
 
 walker@~1.0.5:
   version "1.0.7"

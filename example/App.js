@@ -3,6 +3,7 @@ import Code from '../src/components/Code'
 import { css } from 'glamor'
 import Heading from '../src/components/Heading'
 import Image from '../src/components/Image'
+import ComponentizeContent from '../src/components/ComponentizeContent'
 import Paragraph from '../src/components/Paragraph'
 import React from 'react'
 import Rule from '../src/components/Rule'
@@ -65,6 +66,11 @@ const App = (props) => (
         <Paragraph>
           <Code>inline code</Code>
         </Paragraph>
+
+        <ComponentizeContent>
+          {'<p>markdown-generated <i>HTML</i></p>'}
+        </ComponentizeContent>
+
         <Image height={7} src="http://placehold.it/350x150" width={16}/>
         <Image
           contain

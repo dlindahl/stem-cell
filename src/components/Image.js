@@ -4,6 +4,8 @@ import invariant from 'fbjs/lib/invariant'
 import { objectFit, pxToRem, remToPx } from '../util/cssTools'
 import React, { PropTypes } from 'react'
 
+const DEFAULT_MARKDOWN_HEIGHT = 150
+const DEFAULT_MARKDOWN_WIDTH = 350
 const MISSING_DIMS = `The Image component requires a size or width/height value
 in order to properly align the image to the vertical rhythm baseline. If the
 image is equal in width and height, you can provide the dimensions as a grid
@@ -145,6 +147,17 @@ Image.propTypes = {
   srcWidth: PropTypes.number,
   useMap: PropTypes.bool,
   width: PropTypes.number
+}
+
+// Transforms attributes from markup to expected values for the component
+Image.fromMarkup = function fromMarkdown (attrs = {}) {
+  return {
+    ...attrs,
+    height: undefined,
+    srcHeight: parseInt(attrs.height, 10) || DEFAULT_MARKDOWN_HEIGHT,
+    srcWidth: parseInt(attrs.width, 10) || DEFAULT_MARKDOWN_WIDTH,
+    width: undefined
+  }
 }
 
 export default Image
