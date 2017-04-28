@@ -1,5 +1,6 @@
 export { default as Bit } from './components/Bit'
 export { default as Button } from './components/Button'
+export { default as Code } from './components/Code'
 export { default as GlobalStylesheet } from './components/GlobalStylesheet'
 export { default as Heading } from './components/Heading'
 export { default as Image } from './components/Image'

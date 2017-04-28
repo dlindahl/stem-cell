@@ -1,4 +1,5 @@
 import Button from '../src/components/Button'
+import Code from '../src/components/Code'
 import { css } from 'glamor'
 import Heading from '../src/components/Heading'
 import Image from '../src/components/Image'
@@ -61,7 +62,9 @@ const App = (props) => (
           Test Paragraph
         </Paragraph>
 
-        Normal
+        <Paragraph>
+          <Code>inline code</Code>
+        </Paragraph>
         <Image height={7} src="http://placehold.it/350x150" width={16}/>
         <Image
           contain
