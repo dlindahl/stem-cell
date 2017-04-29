@@ -3,12 +3,6 @@ import { css } from 'glamor'
 import { createElement, PropTypes } from 'react'
 import { boxModelRuleVerticalRhythm as vr } from '../util/verticalRhythm'
 
-const styles = {
-  root: css({
-    overflow: 'hidden'
-  })
-}
-
 const Bit = (
   {
     as = 'div',
@@ -117,25 +111,20 @@ const Bit = (
    * Merge all the styles and convert to string so that the `as` property can
    * interop with other 3rd party components
    */
-  const boxModelClassName = css(
-    {
-      ...boxModelRules,
-      ...borderWidthRules
-    },
-    styles.root,
-    {
-      backgroundColor,
-      borderBottomColor,
-      borderBottomLeftRadius,
-      borderBottomRightRadius,
-      borderLeftColor,
-      borderRightColor,
-      borderTopColor,
-      borderTopLeftRadius,
-      borderTopRightRadius,
-      color
-    }
-  )
+  const boxModelClassName = css({
+    ...boxModelRules,
+    ...borderWidthRules,
+    backgroundColor,
+    borderBottomColor,
+    borderBottomLeftRadius,
+    borderBottomRightRadius,
+    borderLeftColor,
+    borderRightColor,
+    borderTopColor,
+    borderTopLeftRadius,
+    borderTopRightRadius,
+    color
+  })
   // TODO: Add stemcell version of cx for easy addition of various classes (or look if glamor has its own)
   return createElement(
     as,
