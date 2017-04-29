@@ -9,6 +9,7 @@ const boxResetBaseRules = {
   padding: 0
 }
 const boxResetRules = {
+  // http://www.paulirish.com/2012/box-sizing-border-box-ftw/
   '*': boxResetBaseRules,
   '*:after': boxResetBaseRules,
   '*:before': boxResetBaseRules
@@ -23,12 +24,28 @@ b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video`
 
 const inputRuleScoe = `input[type=button], button, input[type=submit], input[type=reset], input[type=file]`
+
+const docResetRules = {
+  /* eslint-disable sort-keys */
+  html: {
+    minHeight: '100%'
+  },
+  'html, body': {
+    margin: 0,
+    padding: 0
+  },
+  body: {
+    // System font https://medium.com/designing-medium/system-shock-6b1dc6d6596f
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif'
+  }
+  /* eslint-enable sort-keys */
+}
 
 const resetCssRules = {
   /* eslint-disable sort-keys */
@@ -59,11 +76,13 @@ export default class ThemeProvider extends Component {
     matchType: PropTypes.func
   };
   static defaultProps = {
-    cssReset: true
+    cssReset: true,
+    docReset: true
   };
   static propTypes = {
     children: PropTypes.node,
     cssReset: PropTypes.bool,
+    docReset: PropTypes.bool,
     matchType: PropTypes.func
   };
   getChildContext () {
@@ -77,7 +96,14 @@ export default class ThemeProvider extends Component {
     }
     if (this.props.cssReset) {
       rules = {
+        ...rules,
         ...resetCssRules
+      }
+    }
+    if (this.props.docReset) {
+      rules = {
+        ...rules,
+        ...docResetRules
       }
     }
     return (
