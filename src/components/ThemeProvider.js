@@ -3,8 +3,8 @@ import GlobalStylesheet from './GlobalStylesheet'
 
 const boxResetBaseRules = {
   boxSizing: 'border-box',
-  fontFamily: 'sans-serif',
-  fontWeight: 'normal',
+  fontFamily: 'inherit',
+  fontWeight: 'inherit',
   margin: 0,
   padding: 0
 }
@@ -60,6 +60,9 @@ const resetCssRules = {
     margin: 0,
     padding: 0,
     font: 'inherit'
+  },
+  code: {
+    fontFamily: 'monospace'
   },
   'ol, ul': {
     listStyle: 'none'
