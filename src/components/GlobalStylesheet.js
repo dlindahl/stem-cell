@@ -2,7 +2,7 @@ import { css } from 'glamor'
 import React, { PropTypes } from 'react'
 import { createMarkupForStyles } from 'glamor/lib/CSSPropertyOperations'
 import { Helmet } from 'react-helmet'
-import { toPairs } from 'lodash'
+import { flatten, toPairs } from 'lodash'
 
 const style = {
   wrapper: css({
@@ -27,10 +27,22 @@ function serialize (scope, rules) {
 }
 
 const GlobalStylesheet = ({ children, rules, ...props }) => {
-  const globalRules = toPairs(rules).reduce(
-    (ruleSet, [scope, rule]) => [...ruleSet, serialize(scope, rule)],
-    []
+  if (!Array.isArray(rules)) {
+    rules = [rules]
+  }
+  const globalRules = flatten(
+    rules.reduce(
+      (combinedRules, ruleSubet) => [
+        ...combinedRules,
+        toPairs(ruleSubet).reduce(
+          (ruleSet, [scope, rule]) => [...ruleSet, serialize(scope, rule)],
+          []
+        )
+      ],
+      []
+    )
   )
+
   return (
     <div className={style.wrapper} data-sc-global>
       <Helmet>
@@ -47,7 +59,7 @@ GlobalStylesheet.defaultProps = {
 
 GlobalStylesheet.propTypes = {
   children: PropTypes.node,
-  rules: PropTypes.object
+  rules: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
 }
 
 export default GlobalStylesheet

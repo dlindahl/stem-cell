@@ -1,4 +1,5 @@
 import Color from 'color'
+import { getCSSVariableValue } from './cssTools'
 import ms from 'modularscale'
 import { minBy, pick } from 'lodash'
 
@@ -82,27 +83,24 @@ export function darken (baseColor, steps) {
  * Convenience method for encapsulating the logic for generating a color
  * derivative used when an element is focused by the user
  */
-export function focusColor (baseColor) {
-  return lighten(baseColor, 5)
+export function focusColor (baseColor, theme) {
+  return lighten(baseColor, 5, theme)
 }
 
 /*
  * Convenience method for encapsulating the logic for generating a color
  * derivative used when an element is hovered over by the user
  */
-export function hoverColor (baseColor) {
-  return darken(baseColor, 5)
+export function hoverColor (baseColor, theme) {
+  return darken(baseColor, 5, theme)
 }
 
-export function lighten (baseColor, steps) {
+export function lighten (baseColor, steps, theme) {
   if (!baseColor) {
     return baseColor
   }
   if (baseColor.startsWith('var(--')) {
-    console.warn(
-      `TODO: Support CSS Variables by appending a prefix such as '--lighten-n'`
-    )
-    return baseColor
+    baseColor = getCSSVariableValue(baseColor, theme)
   }
   const c = Color(baseColor)
   const delta = ms(steps) / 100

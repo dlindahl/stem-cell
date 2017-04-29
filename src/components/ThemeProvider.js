@@ -1,12 +1,16 @@
 import React, { Component, PropTypes } from 'react'
 import GlobalStylesheet from './GlobalStylesheet'
+import defaultTheme from '../themes/default'
 
 const boxResetBaseRules = {
+  border: 0,
   boxSizing: 'border-box',
   fontFamily: 'inherit',
+  fontSize: '100%',
   fontWeight: 'inherit',
   margin: 0,
-  padding: 0
+  padding: 0,
+  verticalAlign: 'baseline'
 }
 const boxResetRules = {
   // http://www.paulirish.com/2012/box-sizing-border-box-ftw/
@@ -15,30 +19,12 @@ const boxResetRules = {
   '*:before': boxResetBaseRules
 }
 
-const resetRuleScope = `html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video`
-
 const inputRuleScoe = `input[type=button], button, input[type=submit], input[type=reset], input[type=file]`
 
 const docResetRules = {
   /* eslint-disable sort-keys */
   html: {
     minHeight: '100%'
-  },
-  'html, body': {
-    margin: 0,
-    padding: 0
   },
   body: {
     // System font https://medium.com/designing-medium/system-shock-6b1dc6d6596f
@@ -49,13 +35,6 @@ const docResetRules = {
 
 const resetCssRules = {
   /* eslint-disable sort-keys */
-  [resetRuleScope]: {
-    border: 0,
-    fontSize: '100%',
-    margin: 0,
-    padding: 0,
-    verticalAlign: 'baseline'
-  },
   [inputRuleScoe]: {
     margin: 0,
     padding: 0,
@@ -74,40 +53,46 @@ const resetCssRules = {
   /* eslint-enable sort-keys */
 }
 
+const themeRules = {
+  // A: {
+  //   Color: 'var(--linkColor)'
+  // },
+  html: {
+    backgroundColor: 'var(--backgroundColor)',
+    color: 'var(--textColor)'
+  }
+}
+
 export default class ThemeProvider extends Component {
   static childContextTypes = {
-    matchType: PropTypes.func
+    matchType: PropTypes.func,
+    theme: PropTypes.object
   };
   static defaultProps = {
     cssReset: true,
-    docReset: true
+    docReset: true,
+    theme: defaultTheme
   };
   static propTypes = {
     children: PropTypes.node,
     cssReset: PropTypes.bool,
     docReset: PropTypes.bool,
-    matchType: PropTypes.func
+    matchType: PropTypes.func,
+    theme: PropTypes.object
   };
   getChildContext () {
     return {
-      matchType: this.props.matchType
+      matchType: this.props.matchType,
+      theme: this.props.theme
     }
   }
   render () {
-    let rules = {
-      ...boxResetRules
-    }
+    let rules = [boxResetRules, this.props.theme, themeRules]
     if (this.props.cssReset) {
-      rules = {
-        ...rules,
-        ...resetCssRules
-      }
+      rules = rules.concat(resetCssRules)
     }
     if (this.props.docReset) {
-      rules = {
-        ...rules,
-        ...docResetRules
-      }
+      rules = rules.concat(docResetRules)
     }
     return (
       <GlobalStylesheet rules={rules}>

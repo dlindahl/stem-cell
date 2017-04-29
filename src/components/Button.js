@@ -23,29 +23,31 @@ const style = {
     {
       color,
       backgroundColor,
-      borderBottomColor,
-      borderLeftColor,
-      borderRightColor,
-      borderTopColor
+      borderColor = color,
+      borderBottomColor = borderColor,
+      borderLeftColor = borderColor,
+      borderRightColor = borderColor,
+      borderTopColor = borderColor,
+      theme
     }
   ) {
     // TODO: make this re-usable for Links or move to Text and add `interactive` attribute which can add 'pointer'
     return css({
       ':focus': {
-        backgroundColor: focusColor(backgroundColor),
-        borderBottomColor: focusColor(borderBottomColor),
-        borderLeftColor: focusColor(borderLeftColor),
-        borderRightColor: focusColor(borderRightColor),
-        borderTopColor: focusColor(borderTopColor),
-        color: focusColor(color)
+        backgroundColor: focusColor(backgroundColor, theme),
+        borderBottomColor: focusColor(borderBottomColor, theme),
+        borderLeftColor: focusColor(borderLeftColor, theme),
+        borderRightColor: focusColor(borderRightColor, theme),
+        borderTopColor: focusColor(borderTopColor, theme),
+        color: focusColor(color, theme)
       },
       ':hover': {
-        backgroundColor: hoverColor(backgroundColor),
-        borderBottomColor: focusColor(borderBottomColor),
-        borderLeftColor: focusColor(borderLeftColor),
-        borderRightColor: focusColor(borderRightColor),
-        borderTopColor: focusColor(borderTopColor),
-        color: hoverColor(color)
+        backgroundColor: hoverColor(backgroundColor, theme),
+        borderBottomColor: focusColor(borderBottomColor, theme),
+        borderLeftColor: focusColor(borderLeftColor, theme),
+        borderRightColor: focusColor(borderRightColor, theme),
+        borderTopColor: focusColor(borderTopColor, theme),
+        color: hoverColor(color, theme)
       }
     })
   },
@@ -58,14 +60,17 @@ const style = {
   })
 }
 
-const Button = ({ backgroundColor, className, color, children, ...props }) => (
+const Button = (
+  { backgroundColor, className, color, children, ...props },
+  { theme }
+) => (
   <Text
     as="button"
     backgroundColor={backgroundColor}
     className={css(
       style.root,
       style.inlineTextFlow(props),
-      style.interactivity({ backgroundColor, color }),
+      style.interactivity({ backgroundColor, color, theme }),
       className
     )}
     color={color}
@@ -75,9 +80,13 @@ const Button = ({ backgroundColor, className, color, children, ...props }) => (
   </Text>
 )
 
+Button.contextTypes = {
+  theme: PropTypes.object
+}
+
 Button.defaultProps = {
-  backgroundColor: 'silver',
-  color: 'black'
+  backgroundColor: 'var(--buttonColor)',
+  color: 'var(--linkColor)'
 }
 
 Button.propTypes = {
