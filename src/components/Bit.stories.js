@@ -1,34 +1,24 @@
 import Bit from './Bit'
-import { color, number, text, withKnobs } from '@kadira/storybook-addon-knobs'
+import CssReset from './CssReset'
+import { number, text, withKnobs } from '@kadira/storybook-addon-knobs'
 import React from 'react'
 import { storiesOf } from '@kadira/storybook'
-import ThemeProvider from './ThemeProvider'
 import VerticalRhythm from './VerticalRhythm'
 
 storiesOf('Bit', module)
   .addDecorator(withKnobs)
   .addDecorator((story) => (
-    <ThemeProvider>
+    <CssReset>
       <VerticalRhythm baseline>
         {story()}
       </VerticalRhythm>
-    </ThemeProvider>
-  ))
-  .add('Background Color Properties', () => (
-    <Bit backgroundColor={color('Background Color', 'transparent')}>
-      {text('Text', 'Lorem ipsum dolor sit amet.')}
-    </Bit>
+    </CssReset>
   ))
   .add('Box Model Properties', () => (
     <Bit
-      backgroundColor="green"
-      borderBottomColor={color('Border Bottom Color', 'gray')}
       borderBottomWidth={number('Border Bottom Width', 0)}
-      borderLeftColor={color('Border Left Color', 'gray')}
       borderLeftWidth={number('Border Left Width', 0)}
-      borderRightColor={color('Border Right Color', 'gray')}
       borderRightWidth={number('Border Right Width', 0)}
-      borderTopColor={color('Border Top Color', 'gray')}
       borderTopWidth={number('Border Top Width', 0)}
       height={number('Height', 1)}
       marginBottom={number('Margin Bottom', 0)}

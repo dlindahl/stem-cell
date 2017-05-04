@@ -1,12 +1,10 @@
 import Bit from './Bit'
 import { boxModelRuleVerticalRhythm as vr } from '../util/verticalRhythm'
-import { css } from 'glamor'
 import React, { PropTypes } from 'react'
 
 const Rule = (
   {
-    className,
-    color,
+    css,
     size,
     margin,
     marginVertical = margin,
@@ -26,16 +24,16 @@ const Rule = (
   if (typeof marginTop === 'undefined') {
     marginTop = 1
   }
-  const style = css({
+  const style = {
+    backgroundColor: '#aaa',
     height: size,
     marginBottom: vr(marginBottom, context) - size,
     marginTop: vr(marginTop, context)
-  })
+  }
   return (
     <Bit
       as="hr"
-      backgroundColor={color}
-      className={`${style} ${className || ''}`}
+      css={[style, css]}
       marginLeft={marginRight}
       marginRight={marginRight}
       marginTop={marginTop}
@@ -49,11 +47,10 @@ Rule.contextTypes = {
   lineHeightRatio: PropTypes.number
 }
 
-Rule.defaultProps = { className: '', color: '#aaa', size: 1 }
+Rule.defaultProps = { size: 1 }
 
 Rule.propTypes = {
-  className: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  color: PropTypes.string,
+  css: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   margin: PropTypes.number,
   marginBottom: PropTypes.number,
   marginHorizontal: PropTypes.number,

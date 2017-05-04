@@ -1,44 +1,39 @@
 import Bit from './Bit'
-import { css } from 'glamor'
 import React, { PropTypes } from 'react'
 import Text from './Text'
 
 const style = {
-  block: css({
+  block: {
     display: 'block'
-  }),
-  inline: css({
+  },
+  inline: {
     /*
      * Needed to normalize the line-height of adjacent inline elements. Without
      * this, the code tag is ~2px taller than the explicitly set line-height.
      * See also http://stackoverflow.com/questions/27638527/how-can-i-mix-vertically-centered-elements-with-different-font-sizes-and-retain
      */
     lineHeight: '1em'
-  })
+  }
 }
 
 const Code = ({ block, className, ...props }) => {
-  if (block || (className && className.includes('hljs'))) {
+  if (block || className.includes('hljs')) {
     return (
       <Bit
         {...props}
         as="code"
-        className={`${css(style.block)} ${className}`}
+        className={className}
+        css={style.block}
         padding={1}
       />
     )
   }
-  return (
-    <Text
-      {...props}
-      as="code"
-      className={`${css(style.inline)} ${className}`}
-    />
-  )
+  return <Text {...props} as="code" className={className} css={style.inline}/>
 }
 
 Code.defaultProps = {
-  block: false
+  block: false,
+  className: ''
 }
 
 Code.propTypes = {

@@ -1,7 +1,7 @@
-import { css } from 'glamor'
-import { processStyleName } from 'glamor/lib/CSSPropertyOperations'
-
-const CSSVarDeclaration = /var\(--([^)]+)\)/
+import {
+  createMarkupForStyles,
+  processStyleName
+} from 'glamor/lib/CSSPropertyOperations'
 
 // Pre-defined object-fit rules
 export const objectFit = 'contain cover fill scaleDown'.split(' ').reduce((
@@ -9,36 +9,10 @@ export const objectFit = 'contain cover fill scaleDown'.split(' ').reduce((
   type
 ) => ({
   ...rules,
-  [type]: css({
+  [type]: {
     objectFit: processStyleName(type)
-  })
+  }
 }), {})
-
-// Returns the value of a given CSS Variable
-export function getCSSVariableValue (varName, theme) {
-  if (typeof document === 'undefined') {
-    const div = document.createElement('div')
-    div.style.color = varName
-    const color = window.getComputedStyle(div).color
-    if (!color) {
-      throw new Error(
-        `Could not get the value of the CSS variable "${varName}" from the DOM. Ensure that the variable has been properly defined and you are not introducing a typo into your reference.`
-      )
-    }
-    return color
-  }
-  const colorKey = varName.replace(CSSVarDeclaration, '$1')
-  let color = theme[':root'][colorKey] || ''
-  if (!color) {
-    throw new Error(
-      `Could not get the value of the CSS variable "${varName}" from the current Stemcell theme`
-    )
-  }
-  if (color.startsWith('var(--')) {
-    color = getCSSVariableValue(color, theme)
-  }
-  return color
-}
 
 // Convert `value` to a px-based Number
 export function px (value, baseFontSize) {
@@ -76,4 +50,24 @@ export function rem (value, baseFontSize) {
 
 export function remToPx (value, { baseFontSize }) {
   return Math.floor(parseInt(value, 10) * baseFontSize)
+}
+
+export function serializeCssVars (scope, rules) {
+  if (!scope) {
+    return ''
+  }
+  if (scope === ':root') {
+    rules = toCssVar(rules)
+  }
+  return `${scope} { ${createMarkupForStyles(rules)} }`
+}
+
+export function toCssVar (obj) {
+  return Object.keys(obj).reduce(
+    (vars, key) => ({
+      ...vars,
+      [`--${key}`]: obj[key]
+    }),
+    {}
+  )
 }

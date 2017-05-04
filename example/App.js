@@ -1,6 +1,7 @@
 import Button from '../src/components/Button'
+import Bit from '../src/components/Bit'
 import Code from '../src/components/Code'
-import { css } from 'glamor'
+import CssReset from '../src/components/CssReset'
 import Heading from '../src/components/Heading'
 import Image from '../src/components/Image'
 import ComponentizeContent from '../src/components/ComponentizeContent'
@@ -8,37 +9,18 @@ import Paragraph from '../src/components/Paragraph'
 import React from 'react'
 import Rule from '../src/components/Rule'
 import Text from '../src/components/Text'
-import ThemeProvider from '../src/components/ThemeProvider'
 import VerticalRhythm from '../src/components/VerticalRhythm'
 
-const spin = css.keyframes('spin', {
-  from: { transform: 'rotate(0deg)' },
-  to: { transform: 'rotate(360deg)' }
-})
-
-const style = {
-  container: css({
+const styles = {
+  container: {
     textAlign: 'center'
-  }),
-  header: css({
-    backgroundColor: '#222',
-    color: 'white',
-    height: 150,
-    padding: 20
-  }),
-  intro: css({
-    fontSize: 'large'
-  }),
-  logo: css({
-    animation: `${spin} infinite 20s linear`,
-    height: 80
-  })
+  }
 }
 
 const App = (props) => (
-  <ThemeProvider>
+  <CssReset>
     <VerticalRhythm baseline>
-      <div className={style.container}>
+      <Bit css={styles.container}>
         <Heading level={1}>
           A Visual Type Scale
         </Heading>
@@ -53,9 +35,9 @@ const App = (props) => (
         <Text inline={false} size="minion">A Visual Type Scale</Text>
         <Text inline={false}>BODY: A Visual Type Scale</Text>
 
-        <Rule/>
+        <Rule css={[{ backgroundColor: '#aaa' }]}/>
 
-        <Button backgroundColor="#0C8558" color="white" size="minion">
+        <Button size="minion">
           Test Button
         </Button>
 
@@ -94,9 +76,9 @@ const App = (props) => (
           srcHeight={150}
           srcWidth={350}
         />
-      </div>
+      </Bit>
     </VerticalRhythm>
-  </ThemeProvider>
+  </CssReset>
 )
 
 export default App

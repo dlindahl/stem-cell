@@ -4,20 +4,20 @@ import {
   text,
   withKnobs
 } from '@kadira/storybook-addon-knobs'
+import CssReset from './CssReset'
 import React from 'react'
 import { storiesOf } from '@kadira/storybook'
 import TextComponent from './Text'
-import ThemeProvider from './ThemeProvider'
 import VerticalRhythm from './VerticalRhythm'
 
 storiesOf('Text', module)
   .addDecorator(withKnobs)
   .addDecorator((story) => (
-    <ThemeProvider>
+    <CssReset>
       <VerticalRhythm baseline>
         {story()}
       </VerticalRhythm>
-    </ThemeProvider>
+    </CssReset>
   ))
   .add('Font Size', () => (
     <TextComponent size={select('Named Size', TextComponent.sizes, 'body')}>

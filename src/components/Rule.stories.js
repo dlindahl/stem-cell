@@ -1,22 +1,16 @@
-import {
-  boolean,
-  color,
-  number,
-  withKnobs
-} from '@kadira/storybook-addon-knobs'
+import { boolean, number, withKnobs } from '@kadira/storybook-addon-knobs'
+import CssReset from './CssReset'
 import Paragraph from './Paragraph'
 import React from 'react'
 import Rule from './Rule'
 import { storiesOf } from '@kadira/storybook'
-import ThemeProvider from './ThemeProvider'
 import VerticalRhythm from './VerticalRhythm'
 
 storiesOf('Rule', module).addDecorator(withKnobs).add('Basic Settings', () => (
-  <ThemeProvider>
+  <CssReset>
     <VerticalRhythm baseline={boolean('Show Baseline', true)}>
       <Paragraph>Lorem ipsum</Paragraph>
       <Rule
-        backgroundColor={color('Color', 'black')}
         marginBottom={number('Bottom Margin', 0)}
         marginTop={number('Top Margin', 0)}
       />
@@ -24,5 +18,5 @@ storiesOf('Rule', module).addDecorator(withKnobs).add('Basic Settings', () => (
       <Paragraph>Lorem ipsum</Paragraph>
       <Paragraph>Lorem ipsum</Paragraph>
     </VerticalRhythm>
-  </ThemeProvider>
+  </CssReset>
 ))

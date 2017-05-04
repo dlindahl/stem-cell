@@ -1,5 +1,4 @@
 import Bit from './Bit'
-import { css } from 'glamor'
 import invariant from 'fbjs/lib/invariant'
 import { objectFit, pxToRem, remToPx } from '../util/cssTools'
 import React, { PropTypes } from 'react'
@@ -18,26 +17,27 @@ cover, contain, etc.) to an Image component. The Image component can only use a
 single object-fit value at a time. Remove any unnecessary object-fit values or
 set their values to 'false' i.e. fill={false}`
 
-const style = {
-  img: css({
+const styles = {
+  img: {
     height: '100%',
     width: '100%'
-  }),
-  root: css({
+  },
+  root: {
     alignItems: 'center',
     display: 'flex',
     justifyContent: 'center',
     overflow: 'hidden'
-  }),
-  rounded: css({
+  },
+  rounded: {
     borderRadius: '50%'
-  })
+  }
 }
 
 const Image = (
   {
     contain,
     cover,
+    css,
     fill,
     scaleDown,
 
@@ -62,22 +62,22 @@ const Image = (
   },
   context
 ) => {
-  const rootClassNames = [style.root]
-  const imgClassNames = []
+  const rootCss = [styles.root]
+  const imgCss = []
   const fitTypes = { contain, cover, fill, scaleDown }
   const fitValues = Object.values(fitTypes).filter((x) => x || null)
   invariant(!(fitValues.length > 1), TOO_MANY_FIT_TYPES)
   if (fitValues.length === 1) {
-    imgClassNames.push(style.img)
+    imgCss.push(styles.img)
   }
   Object.keys(objectFit).forEach((fitType) => {
     if (fitTypes[fitType]) {
-      imgClassNames.push(objectFit[fitType])
+      imgCss.push(objectFit[fitType])
     }
   })
   if (rounded) {
-    imgClassNames.push(style.rounded)
-    rootClassNames.push(style.rounded)
+    imgCss.push(styles.rounded)
+    rootCss.push(styles.rounded)
   }
   if (fitValues.length === 0) {
     // Add whitespace around source image so that it fits w/o cropping or scaling
@@ -101,16 +101,12 @@ const Image = (
   return (
     <Bit
       as="figure"
-      className={css(...rootClassNames)}
+      css={[rootCss, css]}
       height={height}
       width={width}
       {...props}
     >
-      <Bit
-        as="img"
-        className={css(...imgClassNames)}
-        nativeProps={nativeProps}
-      />
+      <Bit as="img" css={imgCss} nativeProps={nativeProps}/>
     </Bit>
   )
 }
@@ -127,6 +123,7 @@ Image.propTypes = {
   contain: PropTypes.bool,
   cover: PropTypes.bool,
   crossOrigin: PropTypes.oneOf(['anonymous', 'use-credentials']),
+  css: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   fill: PropTypes.bool,
   height: PropTypes.number,
   referrerPolicy: PropTypes.oneOf([

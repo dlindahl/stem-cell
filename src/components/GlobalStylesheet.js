@@ -1,29 +1,13 @@
-import { css } from 'glamor'
+import Bit from './Bit'
 import React, { PropTypes } from 'react'
-import { createMarkupForStyles } from 'glamor/lib/CSSPropertyOperations'
 import { Helmet } from 'react-helmet'
 import { flatten, toPairs } from 'lodash'
+import { serializeCssVars } from '../util/cssTools'
 
-const style = {
-  wrapper: css({
+const styles = {
+  wrapper: {
     height: '100%'
-  })
-}
-
-function serialize (scope, rules) {
-  if (!scope) {
-    return ''
   }
-  if (scope === ':root') {
-    rules = Object.keys(rules).reduce(
-      (vars, key) => ({
-        ...vars,
-        [`--${key}`]: rules[key]
-      }),
-      {}
-    )
-  }
-  return `${scope} { ${createMarkupForStyles(rules)} }`
 }
 
 const GlobalStylesheet = ({ children, rules, ...props }) => {
@@ -35,7 +19,10 @@ const GlobalStylesheet = ({ children, rules, ...props }) => {
       (combinedRules, ruleSubet) => [
         ...combinedRules,
         toPairs(ruleSubet).reduce(
-          (ruleSet, [scope, rule]) => [...ruleSet, serialize(scope, rule)],
+          (ruleSet, [scope, rule]) => [
+            ...ruleSet,
+            serializeCssVars(scope, rule)
+          ],
           []
         )
       ],
@@ -44,12 +31,12 @@ const GlobalStylesheet = ({ children, rules, ...props }) => {
   )
 
   return (
-    <div className={style.wrapper} data-sc-global>
+    <Bit css={styles.wrapper} data-sc-global>
       <Helmet>
         <style>{globalRules.join('\n')}</style>
       </Helmet>
       {children}
-    </div>
+    </Bit>
   )
 }
 

@@ -1,38 +1,30 @@
 import {
   boolean,
-  color,
   number,
   select,
   text,
   withKnobs
 } from '@kadira/storybook-addon-knobs'
+import CssReset from './CssReset'
 import { storiesOf } from '@kadira/storybook'
 import Image from './Image'
 import React from 'react'
-import ThemeProvider from './ThemeProvider'
 import VerticalRhythm from './VerticalRhythm'
 
 storiesOf('Image', module)
   .addDecorator(withKnobs)
   .addDecorator((story, context) => (
-    <ThemeProvider>
+    <CssReset>
       <VerticalRhythm baseline>
         {story()}
       </VerticalRhythm>
-    </ThemeProvider>
+    </CssReset>
   ))
   .add('Basic Image', () => {
     const h = number('Source Height', 150)
     const w = number('Source Width', 350)
     const src = text('Source URL', `https://placehold.it/${w}x${h}`)
-    return (
-      <Image
-        backgroundColor={color('Background Color', 'transparent')}
-        src={src}
-        srcHeight={h}
-        srcWidth={w}
-      />
-    )
+    return <Image src={src} srcHeight={h} srcWidth={w}/>
   })
   .add('Container Dimensions', () => {
     const h = number('Source Height', 150)
@@ -40,7 +32,6 @@ storiesOf('Image', module)
     const src = text('Source URL', `https://placehold.it/${w}x${h}`)
     return (
       <Image
-        backgroundColor={color('Background Color', 'transparent')}
         height={number('Container Height', 7)}
         src={src}
         srcHeight={h}
@@ -58,7 +49,6 @@ storiesOf('Image', module)
     return (
       <Image
         {...fitProps}
-        backgroundColor={color('Background Color', 'red')}
         src="https://placehold.it/350x150"
         srcHeight={150}
         srcWidth={350}
@@ -79,7 +69,6 @@ storiesOf('Image', module)
     return (
       <Image
         {...fitProps}
-        backgroundColor={color('Background Color', 'red')}
         rounded={boolean('Rounded', false)}
         size={number('Container Size', 6)}
         src={src}

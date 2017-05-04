@@ -1,24 +1,18 @@
-import {
-  color,
-  number,
-  select,
-  text,
-  withKnobs
-} from '@kadira/storybook-addon-knobs'
+import CssReset from './CssReset'
+import { number, select, text, withKnobs } from '@kadira/storybook-addon-knobs'
 import Heading from './Heading'
 import React from 'react'
 import { storiesOf } from '@kadira/storybook'
-import ThemeProvider from './ThemeProvider'
 import VerticalRhythm from './VerticalRhythm'
 
 storiesOf('Heading', module)
   .addDecorator(withKnobs)
   .addDecorator((story, context) => (
-    <ThemeProvider>
+    <CssReset>
       <VerticalRhythm baseline>
         {story()}
       </VerticalRhythm>
-    </ThemeProvider>
+    </CssReset>
   ))
   .add('Typographic Hierarchy', () => (
     <div>
@@ -40,7 +34,6 @@ storiesOf('Heading', module)
   ))
   .add('Borders', () => (
     <Heading
-      borderColor={color('Border Color', 'green')}
       borderWidth={number('Border Width', 10)}
       level={text('Level', 'canon')}
       padding={number('Padding', 1)}

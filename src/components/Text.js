@@ -1,13 +1,12 @@
 import Bit from './Bit'
-import { css } from 'glamor'
 import React, { PropTypes } from 'react'
 import { rem } from '../util/cssTools'
 import { typographyVerticalRhythm as vr } from '../util/verticalRhythm'
 
-const style = {
-  inlineTextFlow: css({
+const styles = {
+  inlineTextFlow: {
     marginRight: '1ch'
-  })
+  }
 }
 
 /*
@@ -49,33 +48,27 @@ function defaultMatchType (rules, { baseFontSize }) {
   return rules
 }
 
-function defaultMatchTypeRunner (rules, context, mt) {
-  return mt(rules, context)
-}
-
 const Text = (
-  { as, children, className, inline, size, ...props },
-  { matchType = defaultMatchTypeRunner, ...context }
+  { as, children, css, inline, size, ...props },
+  { matchType, ...context }
 ) => {
-  let typeClassName
-  let inlineClassName
+  let typographyCss
+  let inlineCss
   if (!as && inline) {
     as = 'span'
   }
   if (inline) {
-    inlineClassName = style.inlineTextFlow
+    inlineCss = styles.inlineTextFlow
   }
   if (TYPOGRAPHY[size]) {
-    typeClassName = css(
-      matchType(vr(TYPOGRAPHY[size], context), context, defaultMatchType)
+    typographyCss = matchType(
+      vr(TYPOGRAPHY[size], context),
+      context,
+      defaultMatchType
     )
   }
   return (
-    <Bit
-      as={as}
-      className={`${css(inlineClassName, typeClassName)} ${className || ''}`}
-      {...props}
-    >
+    <Bit as={as} css={[inlineCss, typographyCss, css]} {...props}>
       {children}
     </Bit>
   )
@@ -95,7 +88,7 @@ Text.defaultProps = {
 Text.propTypes = {
   as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   children: PropTypes.node,
-  className: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  css: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   inline: PropTypes.bool,
   size: PropTypes.oneOf(Object.keys(TYPOGRAPHY))
 }

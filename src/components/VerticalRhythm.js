@@ -1,6 +1,7 @@
+import Bit from './Bit'
 import { boxModelRuleVerticalRhythm } from '../util/verticalRhythm'
+import { css as glamor } from 'glamor'
 import React, { Component, PropTypes } from 'react'
-import { css } from 'glamor'
 import { debounce } from 'lodash'
 import GlobalStylesheet from './GlobalStylesheet'
 import invariant from 'fbjs/lib/invariant'
@@ -56,7 +57,7 @@ const SCALE_RATIOS = [
 ]
 
 const styles = {
-  baseline: css({
+  baseline: glamor({
     /* eslint-disable max-len */
     backgroundImage: `linear-gradient(to bottom, var(--baselineColor) 1px, transparent 1px)`,
     backgroundSize: `auto var(--baseline)`,
@@ -69,9 +70,13 @@ const styles = {
     top: 0,
     zIndex: 16777271
   }),
-  root: css({
+  root: {
     height: 'auto'
-  })
+  }
+}
+
+function defaultMatchTypeRunner (rules, context, mt) {
+  return mt(rules, context)
 }
 
 export default class VerticalRhythm extends Component {
@@ -79,6 +84,7 @@ export default class VerticalRhythm extends Component {
     baseFontSize: PropTypes.number,
     baseline: PropTypes.string,
     lineHeightRatio: PropTypes.number,
+    matchType: PropTypes.func,
     scaleRatio: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
   };
   static defaultProps = {
@@ -87,6 +93,7 @@ export default class VerticalRhythm extends Component {
     baselineColor: 'rgba(255,0,255,0.25)',
     breakpoints: DEFAULT_BREAKPOINTS,
     lineHeightRatio: 1.5,
+    matchType: defaultMatchTypeRunner,
     scaleRatio: 'diminished fourth'
   };
   static propTypes = {
@@ -95,8 +102,9 @@ export default class VerticalRhythm extends Component {
     baselineColor: PropTypes.string,
     breakpoints: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
     children: PropTypes.node,
-    className: PropTypes.object,
+    css: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
     lineHeightRatio: PropTypes.number,
+    matchType: PropTypes.func,
     scaleRatio: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.oneOf(SCALE_RATIOS)
@@ -111,7 +119,8 @@ export default class VerticalRhythm extends Component {
   };
   getChildContext () {
     return {
-      ...this.state
+      ...this.state,
+      matchType: this.props.matchType
     }
   }
   componentWillMount () {
@@ -155,7 +164,7 @@ export default class VerticalRhythm extends Component {
     this.initialBodyHeight = bodyStyles.height
     this.initialBodyPosition = bodyStyles.position
     document.body.style.height = 'auto'
-    document.body.style.position = 'relative'
+    // Document.body.style.position = 'relative' // TODO: I thought this was needed...
     document.body.appendChild(this.baselineEl)
     return this.baselineEl
   }
@@ -211,7 +220,7 @@ export default class VerticalRhythm extends Component {
   initialBodyPosition = null;
   resizeHandler = null;
   render () {
-    const classNames = [styles.root, this.props.className]
+    const css = [styles.root, this.props.css]
     return (
       <GlobalStylesheet
         rules={{
@@ -225,9 +234,9 @@ export default class VerticalRhythm extends Component {
           }
         }}
       >
-        <div className={css(...classNames)} data-sc-vr>
+        <Bit css={css} data-sc-vr>
           {this.props.children}
-        </div>
+        </Bit>
       </GlobalStylesheet>
     )
   }

@@ -1,10 +1,28 @@
-import { compensateForBorder } from '../util/borderTools'
-import { css } from 'glamor'
-import { createElement, PropTypes } from 'react'
 import { boxModelRuleVerticalRhythm as vr } from '../util/verticalRhythm'
+import { compensateForBorder } from '../util/borderTools'
+import { css as glamor } from 'glamor'
+import { createElement, PropTypes } from 'react'
+import { flattenDeep } from 'lodash'
 
-const Bit = (
-  {
+// Generate CSS classnames from CSS props
+function applyStyles (css) {
+  return flattenDeep(css)
+    .reduce(
+      (classNames, declarations) => {
+        if (!declarations) {
+          return classNames
+        }
+        classNames.push(glamor(declarations))
+        return classNames
+      },
+      []
+    )
+    .join(' ')
+}
+
+const Bit = (allProps, context) => {
+  let { css, ...stylelessProps } = allProps
+  const {
     as = 'div',
 
     bottom,
@@ -31,11 +49,6 @@ const Bit = (
     marginLeft = marginHorizontal,
     marginRight = marginHorizontal,
 
-    borderColor,
-    borderTopColor = borderColor,
-    borderRightColor = borderColor,
-    borderBottomColor = borderColor,
-    borderLeftColor = borderColor,
     borderWidth = 0,
     borderTopWidth = borderWidth,
     borderBottomWidth = borderWidth,
@@ -62,14 +75,9 @@ const Bit = (
     paddingLeft = paddingHorizontal,
     paddingRight = paddingHorizontal,
 
-    backgroundColor,
-    color,
-
     nativeProps,
     ...props
-  },
-  context
-) => {
+  } = stylelessProps
   const rhythmProps = {
     bottom,
     height,
@@ -111,25 +119,22 @@ const Bit = (
    * Merge all the styles and convert to string so that the `as` property can
    * interop with other 3rd party components
    */
-  const boxModelClassName = css({
+  const boxModelStyles = {
     ...boxModelRules,
     ...borderWidthRules,
-    backgroundColor,
-    borderBottomColor,
     borderBottomLeftRadius,
     borderBottomRightRadius,
-    borderLeftColor,
-    borderRightColor,
-    borderTopColor,
     borderTopLeftRadius,
-    borderTopRightRadius,
-    color
-  })
-  // TODO: Add stemcell version of cx for easy addition of various classes (or look if glamor has its own)
+    borderTopRightRadius
+  }
+  if (!Array.isArray(css)) {
+    css = [css]
+  }
+  css.unshift(boxModelStyles)
   return createElement(
     as,
     {
-      className: `${boxModelClassName} ${className || ''}`,
+      className: `${applyStyles(css)} ${className}`,
       ...props,
       ...nativeProps
     },
@@ -140,18 +145,18 @@ const Bit = (
 Bit.contextTypes = {
   baseFontSize: PropTypes.number,
   lineHeightRatio: PropTypes.number,
-  scaleRatio: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+  scaleRatio: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  theme: PropTypes.object
 }
 
 Bit.defaultProps = {
   as: 'div',
+  className: '',
   nativeProps: {}
 }
 
 Bit.propTypes = {
   as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  backgroundColor: PropTypes.string,
-  borderBottomColor: PropTypes.string,
   borderBottomLeftRadius: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string
@@ -163,17 +168,13 @@ Bit.propTypes = {
   ]),
   borderBottomStyle: PropTypes.string,
   borderBottomWidth: PropTypes.number,
-  borderColor: PropTypes.string,
   borderHorizontalWidth: PropTypes.number,
-  borderLeftColor: PropTypes.string,
   borderLeftStyle: PropTypes.string,
   borderLeftWidth: PropTypes.number,
   borderRadius: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  borderRightColor: PropTypes.string,
   borderRightStyle: PropTypes.string,
   borderRightWidth: PropTypes.number,
   borderStyle: PropTypes.string,
-  borderTopColor: PropTypes.string,
   borderTopLeftRadius: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string
@@ -189,9 +190,10 @@ Bit.propTypes = {
   borderWidth: PropTypes.number,
   bottom: PropTypes.number,
   children: PropTypes.node,
-  className: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  color: PropTypes.string,
+  className: PropTypes.string,
+  css: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   height: PropTypes.number,
+  interactive: PropTypes.bool,
   left: PropTypes.number,
   margin: PropTypes.number,
   marginBottom: PropTypes.number,

@@ -16,7 +16,7 @@ const DEFAULT_MAPPINGS = {
 }
 
 // TODO: Move this to optional package?
-const ComponentizeContent = ({ children, className, ...props }) => {
+const ComponentizeContent = ({ children, ...props }) => {
   if (!children || typeof children !== 'string') {
     return children
   }
@@ -25,7 +25,7 @@ const ComponentizeContent = ({ children, className, ...props }) => {
     mappings: DEFAULT_MAPPINGS
   })
   return (
-    <Bit className={className} data-sc-md>
+    <Bit {...props}>
       {reparsedAst}
     </Bit>
   )

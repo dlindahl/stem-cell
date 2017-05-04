@@ -1,18 +1,18 @@
+import CssReset from './CssReset'
 import { text, withKnobs } from '@kadira/storybook-addon-knobs'
 import React from 'react'
 import { storiesOf } from '@kadira/storybook'
 import ComponentizeContent from './ComponentizeContent'
-import ThemeProvider from './ThemeProvider'
 import VerticalRhythm from './VerticalRhythm'
 
 storiesOf('ComponentizeContent', module)
   .addDecorator(withKnobs)
   .addDecorator((story) => (
-    <ThemeProvider>
+    <CssReset>
       <VerticalRhythm baseline>
         {story()}
       </VerticalRhythm>
-    </ThemeProvider>
+    </CssReset>
   ))
   .add('Default Settings', () => (
     <ComponentizeContent>
