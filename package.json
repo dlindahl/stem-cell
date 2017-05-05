@@ -1,7 +1,7 @@
 {
   "name": "stemcell",
   "version": "1.0.0",
-  "description": "",
+  "description": "React build blocks focusing on typographic vertical rhythm",
   "main": "dist/commonjs/index.js",
   "module": "dist/es/index.js",
   "jsnext:main": "dist/es/index.js",
@@ -14,7 +14,13 @@
   },
   "contributors": [],
   "homepage": "http://dlindahl.github.io/stemcell",
-  "keywords": [],
+  "keywords": [
+    "blocks",
+    "components",
+    "react",
+    "typography",
+    "vertical rhythm"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",

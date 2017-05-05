@@ -1,5 +1,7 @@
 # stemcell
 
+> This is still a work in progress
+
 ## Additional Reading/Inspiration
 
 *   <http://www.bbc.co.uk/gel/guidelines/typography>
