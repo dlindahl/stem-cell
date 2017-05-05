@@ -29,12 +29,19 @@ const GlobalStylesheet = ({ children, rules, ...props }) => {
       []
     )
   )
+  const styleSheet = (
+    <Helmet>
+      <style>{globalRules.join('\n')}</style>
+    </Helmet>
+  )
+
+  if (!children) {
+    return styleSheet
+  }
 
   return (
     <Bit css={styles.wrapper} data-sc-global>
-      <Helmet>
-        <style>{globalRules.join('\n')}</style>
-      </Helmet>
+      {styleSheet}
       {children}
     </Bit>
   )
