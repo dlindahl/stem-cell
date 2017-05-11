@@ -24,7 +24,24 @@ storiesOf('Text', module)
       {text('Text', 'Lorem ipsum dolor sit amet.')}
     </TextComponent>
   ))
-  .add('Rendering Box', () => {
+  .add('Block Rendering Box', () => {
+    const size = select('Named Size', TextComponent.sizes, 'body')
+    const block = boolean('Block Rendering Box', true)
+    return (
+      <div>
+        <TextComponent block={block} size={size}>
+          Preamble
+        </TextComponent>
+        <TextComponent block={block} size={size}>
+          Block: {block.toString()} Size: {size}
+        </TextComponent>
+        <TextComponent block={block} size={size}>
+          Epilogue
+        </TextComponent>
+      </div>
+    )
+  })
+  .add('Inline Rendering Box', () => {
     const size = select('Named Size', TextComponent.sizes, 'body')
     const inline = boolean('Inline Rendering Box', true)
     return (

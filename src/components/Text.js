@@ -60,11 +60,14 @@ function defaultMatchType (rules, { baseFontSize }) {
 }
 
 const Text = (
-  { as, children, css, inline, size, ...props },
+  { as, block, children, css, inline, size, ...props },
   { matchType, ...context }
 ) => {
   let typographyCss
   let inlineCss
+  if (block) {
+    inline = false
+  }
   if (!as && inline) {
     as = 'span'
   }
@@ -93,11 +96,13 @@ Text.contextTypes = {
 }
 
 Text.defaultProps = {
+  block: false,
   inline: true
 }
 
 Text.propTypes = {
   as: oneOfType([string, func]),
+  block: bool,
   children: node,
   css: oneOfType([array, object]),
   inline: bool,
