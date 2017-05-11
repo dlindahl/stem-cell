@@ -1,3 +1,4 @@
+import Bit from './Bit'
 import CssReset from './CssReset'
 import { number, select, text, withKnobs } from '@kadira/storybook-addon-knobs'
 import Paragraph from './Paragraph'
@@ -17,7 +18,13 @@ storiesOf('Paragraph', module)
       </VerticalRhythm>
     </CssReset>
   ))
-  .add('Default', () => <Paragraph>{text('Text', Lorem)}</Paragraph>)
+  .add('Default', () => (
+    <Bit>
+      <Paragraph>{text('Text', Lorem)}</Paragraph>
+      <Paragraph>{text('Text', Lorem)}</Paragraph>
+      <Paragraph>{text('Text', Lorem)}</Paragraph>
+    </Bit>
+  ))
   .add('Dimensional Settings', () => (
     <Paragraph
       height={number('Height', 0)}
