@@ -18,7 +18,10 @@ const DEFAULT_MAPPINGS = {
 
 // TODO: Move this to optional package?
 const ComponentizeContent = ({ children, ...props }) => {
-  if (!children || typeof children !== 'string') {
+  if (!children) {
+    return null
+  }
+  if (typeof children !== 'string') {
     return children
   }
   const ast = HTML.parse(`<div>${children}</div>`)
