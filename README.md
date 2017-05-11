@@ -19,6 +19,10 @@
 
 ## TODO
 
-*   Think about fractional padding with margin offset to realign
-*   Allow arbitrary horizontal values cuz YOLO
-*   Figure out how to map Markdown components to Stemcell components or export the styles so they can be applied as nested rules
+-   [ ] Think about fractional padding with margin offset to realign
+-   [ ] Allow arbitrary horizontal values cuz YOLO
+-   [ ] Add additional stemcell mappings to ComponentizeContent
+-   [ ] Figure out list items
+-   [ ] Add vertical margin to markdown paragraphs
+-   [ ] Return NULL from ComponentizeContent if nothing is passed in (this should already work?)
+-   [ ] Determine if System Font should be part of the CSS Reset
