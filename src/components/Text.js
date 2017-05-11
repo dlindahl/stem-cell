@@ -16,7 +16,11 @@ import { typographyVerticalRhythm as vr } from '../util/verticalRhythm'
 
 const styles = {
   inlineTextFlow: {
-    marginRight: '1ch'
+    ':after': {
+      content: ' ',
+      fontFamily: 'inherit',
+      whiteSpace: 'pre'
+    }
   }
 }
 
