@@ -27,6 +27,12 @@ single object-fit value at a time. Remove any unnecessary object-fit values or
 set their values to 'false' i.e. fill={false}`
 
 const styles = {
+  fillParent: {
+    maxHeight: '100%',
+    maxWidth: '100%',
+    minHeight: '100%',
+    minWidth: '100%'
+  },
   img: {
     height: '100%',
     width: '100%'
@@ -64,6 +70,7 @@ const Image = (
     srcHeight = srcSize,
     srcWidth = srcSize,
 
+    fillParent,
     size,
     height = size,
     width = size,
@@ -76,6 +83,13 @@ const Image = (
   const fitTypes = { contain, cover, fill, scaleDown }
   const fitValues = Object.values(fitTypes).filter((x) => x || null)
   invariant(!(fitValues.length > 1), TOO_MANY_FIT_TYPES)
+  if (fillParent) {
+    rootCss.push(styles.fillParent)
+    if (!fitValues.length) {
+      // Cover provides the best scaling, so default to that when filling the parent
+      fitValues.push('cover')
+    }
+  }
   if (fitValues.length === 1) {
     imgCss.push(styles.img)
   }
@@ -134,6 +148,7 @@ Image.propTypes = {
   crossOrigin: oneOf(['anonymous', 'use-credentials']),
   css: oneOfType([array, object]),
   fill: bool,
+  fillParent: bool,
   height: number,
   referrerPolicy: oneOf([
     'no-referrer',

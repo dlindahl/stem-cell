@@ -1,3 +1,4 @@
+import Bit from './Bit'
 import {
   boolean,
   number,
@@ -74,5 +75,31 @@ storiesOf('Image', module)
         src={src}
         srcSize={srcSize}
       />
+    )
+  })
+  .add('Fill Parent Dimensions', () => {
+    const fitType = select('Object Fit', [''].concat(Image.objectFitTypes), '')
+    let fitProps = {}
+    if (fitType) {
+      fitProps = { [fitType]: true }
+    }
+    const srcSize = number('Source Size', 150)
+    const src = text(
+      'Source URL',
+      `https://placehold.it/${srcSize}x${srcSize}`
+    )
+    return (
+      <Bit
+        height={number('Container Height', 9)}
+        width={number('Container Width', 16)}
+      >
+        <Image
+          {...fitProps}
+          fillParent
+          rounded={boolean('Rounded', false)}
+          src={src}
+          srcSize={srcSize}
+        />
+      </Bit>
     )
   })
