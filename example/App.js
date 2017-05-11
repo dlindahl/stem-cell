@@ -42,7 +42,7 @@ const App = (props) => (
         </Button>
 
         <Paragraph>
-          Test Paragraph
+          <Text>Test</Text> <Text>Paragraph</Text>
         </Paragraph>
 
         <Paragraph>

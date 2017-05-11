@@ -14,16 +14,6 @@ import React from 'react'
 import { rem } from '../util/cssTools'
 import { typographyVerticalRhythm as vr } from '../util/verticalRhythm'
 
-const styles = {
-  inlineTextFlow: {
-    ':after': {
-      content: ' ',
-      fontFamily: 'inherit',
-      whiteSpace: 'pre'
-    }
-  }
-}
-
 /*
  * Default CSS rules for type hierarchy based on BBC's GEL
  * (http://www.bbc.co.uk/gel/guidelines/typography)
@@ -74,9 +64,6 @@ const Text = (
   }
   if (!as && inline) {
     as = 'span'
-  }
-  if (inline) {
-    inlineCss = styles.inlineTextFlow
   }
   if (TYPOGRAPHY[size]) {
     typographyCss = matchType(
