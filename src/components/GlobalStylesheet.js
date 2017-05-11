@@ -1,5 +1,6 @@
+import { array, node, object, oneOfType } from 'prop-types'
 import Bit from './Bit'
-import React, { PropTypes } from 'react'
+import React from 'react'
 import { Helmet } from 'react-helmet'
 import { flatten, toPairs } from 'lodash'
 import { serializeCssVars } from '../util/cssTools'
@@ -52,8 +53,8 @@ GlobalStylesheet.defaultProps = {
 }
 
 GlobalStylesheet.propTypes = {
-  children: PropTypes.node,
-  rules: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
+  children: node,
+  rules: oneOfType([array, object])
 }
 
 export default GlobalStylesheet

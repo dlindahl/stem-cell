@@ -1,7 +1,16 @@
+import {
+  array,
+  bool,
+  number,
+  object,
+  oneOf,
+  oneOfType,
+  string
+} from 'prop-types'
 import Bit from './Bit'
 import invariant from 'fbjs/lib/invariant'
 import { objectFit, pxToRem, remToPx } from '../util/cssTools'
-import React, { PropTypes } from 'react'
+import React from 'react'
 
 const DEFAULT_MARKDOWN_HEIGHT = 150
 const DEFAULT_MARKDOWN_WIDTH = 350
@@ -112,38 +121,38 @@ const Image = (
 }
 
 Image.contextTypes = {
-  baseFontSize: PropTypes.number,
-  lineHeightRatio: PropTypes.number
+  baseFontSize: number,
+  lineHeightRatio: number
 }
 
 Image.objectFitTypes = Object.keys(objectFit)
 
 Image.propTypes = {
-  alt: PropTypes.string,
-  contain: PropTypes.bool,
-  cover: PropTypes.bool,
-  crossOrigin: PropTypes.oneOf(['anonymous', 'use-credentials']),
-  css: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
-  fill: PropTypes.bool,
-  height: PropTypes.number,
-  referrerPolicy: PropTypes.oneOf([
+  alt: string,
+  contain: bool,
+  cover: bool,
+  crossOrigin: oneOf(['anonymous', 'use-credentials']),
+  css: oneOfType([array, object]),
+  fill: bool,
+  height: number,
+  referrerPolicy: oneOf([
     'no-referrer',
     'no-referrer-when-downgrade',
     'origin',
     'origin-when-cross-origin',
     'unsafe-url'
   ]),
-  rounded: PropTypes.bool,
-  scaleDown: PropTypes.bool,
-  size: PropTypes.number,
-  sizes: PropTypes.string,
-  src: PropTypes.string.isRequired,
-  srcHeight: PropTypes.number,
-  srcSet: PropTypes.string,
-  srcSize: PropTypes.number,
-  srcWidth: PropTypes.number,
-  useMap: PropTypes.bool,
-  width: PropTypes.number
+  rounded: bool,
+  scaleDown: bool,
+  size: number,
+  sizes: string,
+  src: string.isRequired,
+  srcHeight: number,
+  srcSet: string,
+  srcSize: number,
+  srcWidth: number,
+  useMap: bool,
+  width: number
 }
 
 // Transforms attributes from markup to expected values for the component

@@ -1,7 +1,18 @@
+import {
+  array,
+  bool,
+  func,
+  node,
+  number,
+  object,
+  oneOf,
+  oneOfType,
+  string
+} from 'prop-types'
 import Bit from './Bit'
 import { boxModelRuleVerticalRhythm } from '../util/verticalRhythm'
 import { css as glamor } from 'glamor'
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import { debounce } from 'lodash'
 import GlobalStylesheet from './GlobalStylesheet'
 import invariant from 'fbjs/lib/invariant'
@@ -81,11 +92,11 @@ function defaultMatchTypeRunner (rules, context, mt) {
 
 export default class VerticalRhythm extends Component {
   static childContextTypes = {
-    baseFontSize: PropTypes.number,
-    baseline: PropTypes.string,
-    lineHeightRatio: PropTypes.number,
-    matchType: PropTypes.func,
-    scaleRatio: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+    baseFontSize: number,
+    baseline: string,
+    lineHeightRatio: number,
+    matchType: func,
+    scaleRatio: oneOfType([number, string])
   };
   static defaultProps = {
     baseFontSize: 16,
@@ -97,18 +108,15 @@ export default class VerticalRhythm extends Component {
     scaleRatio: 'diminished fourth'
   };
   static propTypes = {
-    baseFontSize: PropTypes.number,
-    baseline: PropTypes.bool,
-    baselineColor: PropTypes.string,
-    breakpoints: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-    children: PropTypes.node,
-    css: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
-    lineHeightRatio: PropTypes.number,
-    matchType: PropTypes.func,
-    scaleRatio: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.oneOf(SCALE_RATIOS)
-    ])
+    baseFontSize: number,
+    baseline: bool,
+    baselineColor: string,
+    breakpoints: oneOfType([object, bool]),
+    children: node,
+    css: oneOfType([array, object]),
+    lineHeightRatio: number,
+    matchType: func,
+    scaleRatio: oneOfType([number, oneOf(SCALE_RATIOS)])
   };
   static breakpoints = DEFAULT_BREAKPOINTS;
   static scaleRatios = SCALE_RATIOS;

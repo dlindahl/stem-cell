@@ -1,5 +1,6 @@
+import { bool, string } from 'prop-types'
 import Bit from './Bit'
-import React, { PropTypes } from 'react'
+import React from 'react'
 import Text from './Text'
 
 const style = {
@@ -37,8 +38,8 @@ Code.defaultProps = {
 }
 
 Code.propTypes = {
-  block: PropTypes.bool,
-  className: PropTypes.string
+  block: bool,
+  className: string
 }
 
 export default Code

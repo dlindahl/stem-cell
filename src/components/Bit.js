@@ -1,7 +1,17 @@
+import {
+  array,
+  bool,
+  func,
+  node,
+  number,
+  object,
+  oneOfType,
+  string
+} from 'prop-types'
 import { boxModelRuleVerticalRhythm as vr } from '../util/verticalRhythm'
 import { compensateForBorder } from '../util/borderTools'
 import { css as glamor } from 'glamor'
-import { createElement, PropTypes } from 'react'
+import { createElement } from 'react'
 import { flattenDeep } from 'lodash'
 
 // Generate CSS classnames from CSS props
@@ -144,10 +154,10 @@ const Bit = (allProps, context) => {
 }
 
 Bit.contextTypes = {
-  baseFontSize: PropTypes.number,
-  lineHeightRatio: PropTypes.number,
-  scaleRatio: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  theme: PropTypes.object
+  baseFontSize: number,
+  lineHeightRatio: number,
+  scaleRatio: oneOfType([number, string]),
+  theme: object
 }
 
 Bit.defaultProps = {
@@ -157,67 +167,55 @@ Bit.defaultProps = {
 }
 
 Bit.propTypes = {
-  as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  borderBottomLeftRadius: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string
-  ]),
-  borderBottomRadius: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  borderBottomRightRadius: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string
-  ]),
-  borderBottomStyle: PropTypes.string,
-  borderBottomWidth: PropTypes.number,
-  borderHorizontalWidth: PropTypes.number,
-  borderLeftStyle: PropTypes.string,
-  borderLeftWidth: PropTypes.number,
-  borderRadius: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  borderRightStyle: PropTypes.string,
-  borderRightWidth: PropTypes.number,
-  borderStyle: PropTypes.string,
-  borderTopLeftRadius: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string
-  ]),
-  borderTopRadius: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  borderTopRightRadius: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string
-  ]),
-  borderTopStyle: PropTypes.string,
-  borderTopWidth: PropTypes.number,
-  borderVertical: PropTypes.number,
-  borderWidth: PropTypes.number,
-  bottom: PropTypes.number,
-  children: PropTypes.node,
-  className: PropTypes.string,
-  css: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
-  height: PropTypes.number,
-  interactive: PropTypes.bool,
-  left: PropTypes.number,
-  margin: PropTypes.number,
-  marginBottom: PropTypes.number,
-  marginHorizontal: PropTypes.number,
-  marginLeft: PropTypes.number,
-  marginRight: PropTypes.number,
-  marginTop: PropTypes.number,
-  marginVertical: PropTypes.number,
-  maxHeight: PropTypes.number,
-  maxWidth: PropTypes.number,
-  minHeight: PropTypes.number,
-  minWidth: PropTypes.number,
-  nativeProps: PropTypes.object,
-  padding: PropTypes.number,
-  paddingBottom: PropTypes.number,
-  paddingHorizontal: PropTypes.number,
-  paddingLeft: PropTypes.number,
-  paddingRight: PropTypes.number,
-  paddingTop: PropTypes.number,
-  paddingVertical: PropTypes.number,
-  right: PropTypes.number,
-  top: PropTypes.number,
-  width: PropTypes.number
+  as: oneOfType([string, func]),
+  borderBottomLeftRadius: oneOfType([number, string]),
+  borderBottomRadius: oneOfType([number, string]),
+  borderBottomRightRadius: oneOfType([number, string]),
+  borderBottomStyle: string,
+  borderBottomWidth: number,
+  borderHorizontalWidth: number,
+  borderLeftStyle: string,
+  borderLeftWidth: number,
+  borderRadius: oneOfType([number, string]),
+  borderRightStyle: string,
+  borderRightWidth: number,
+  borderStyle: string,
+  borderTopLeftRadius: oneOfType([number, string]),
+  borderTopRadius: oneOfType([number, string]),
+  borderTopRightRadius: oneOfType([number, string]),
+  borderTopStyle: string,
+  borderTopWidth: number,
+  borderVertical: number,
+  borderWidth: number,
+  bottom: number,
+  children: node,
+  className: string,
+  css: oneOfType([array, object]),
+  height: number,
+  interactive: bool,
+  left: number,
+  margin: number,
+  marginBottom: number,
+  marginHorizontal: number,
+  marginLeft: number,
+  marginRight: number,
+  marginTop: number,
+  marginVertical: number,
+  maxHeight: number,
+  maxWidth: number,
+  minHeight: number,
+  minWidth: number,
+  nativeProps: object,
+  padding: number,
+  paddingBottom: number,
+  paddingHorizontal: number,
+  paddingLeft: number,
+  paddingRight: number,
+  paddingTop: number,
+  paddingVertical: number,
+  right: number,
+  top: number,
+  width: number
 }
 
 export default Bit

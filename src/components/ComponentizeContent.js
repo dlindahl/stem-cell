@@ -1,7 +1,8 @@
+import { node, object, oneOfType, string } from 'prop-types'
 import Bit from './Bit'
 import Code from './Code'
 import HTML from 'html-parse-stringify'
-import React, { PropTypes } from 'react'
+import React from 'react'
 import reactify from '../util/reactify'
 import Image from './Image'
 import Rule from './Rule'
@@ -32,8 +33,8 @@ const ComponentizeContent = ({ children, ...props }) => {
 }
 
 ComponentizeContent.propTypes = {
-  children: PropTypes.node,
-  className: PropTypes.oneOfType([PropTypes.object, PropTypes.string])
+  children: node,
+  className: oneOfType([object, string])
 }
 
 export default ComponentizeContent

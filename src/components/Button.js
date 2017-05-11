@@ -1,5 +1,6 @@
+import { array, node, object, oneOfType } from 'prop-types'
 import Text from './Text'
-import React, { PropTypes } from 'react'
+import React from 'react'
 
 const styles = {
   baselineRealignment: {
@@ -35,12 +36,12 @@ const Button = ({ css, children, ...props }, { theme }) => (
 )
 
 Button.contextTypes = {
-  theme: PropTypes.object
+  theme: object
 }
 
 Button.propTypes = {
-  children: PropTypes.node,
-  css: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
+  children: node,
+  css: oneOfType([array, object])
 }
 
 export default Button

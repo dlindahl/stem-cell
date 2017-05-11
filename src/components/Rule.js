@@ -1,6 +1,7 @@
+import { array, number, object, oneOfType } from 'prop-types'
 import Bit from './Bit'
 import { boxModelRuleVerticalRhythm as vr } from '../util/verticalRhythm'
-import React, { PropTypes } from 'react'
+import React from 'react'
 
 const Rule = (
   {
@@ -49,22 +50,22 @@ const Rule = (
 }
 
 Rule.contextTypes = {
-  baseFontSize: PropTypes.number,
-  lineHeightRatio: PropTypes.number
+  baseFontSize: number,
+  lineHeightRatio: number
 }
 
 Rule.defaultProps = { size: 1 }
 
 Rule.propTypes = {
-  css: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
-  margin: PropTypes.number,
-  marginBottom: PropTypes.number,
-  marginHorizontal: PropTypes.number,
-  marginLeft: PropTypes.number,
-  marginRight: PropTypes.number,
-  marginTop: PropTypes.number,
-  marginVertical: PropTypes.number,
-  size: PropTypes.number
+  css: oneOfType([array, object]),
+  margin: number,
+  marginBottom: number,
+  marginHorizontal: number,
+  marginLeft: number,
+  marginRight: number,
+  marginTop: number,
+  marginVertical: number,
+  size: number
 }
 
 export default Rule

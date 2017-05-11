@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import { bool, func, node, oneOf, oneOfType, string } from 'prop-types'
+import React from 'react'
 import Text from './Text'
 
 const LEVELS = [
@@ -10,7 +11,7 @@ const LEVELS = [
   'longPrimer' // H6
 ]
 
-const Heading = ({ as, children, level, ...props }, { theme }) => {
+const Heading = ({ as, children, inline, level, ...props }, { theme }) => {
   let headingLevel = level
   if (typeof level === 'number') {
     as = as || `h${level}`
@@ -28,11 +29,11 @@ Heading.defaultProps = {
 }
 
 Heading.propTypes = {
-  as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  children: PropTypes.node,
-  level: PropTypes.oneOfType([
-    PropTypes.oneOf(LEVELS),
-    PropTypes.oneOf([...Array(6).keys()].map((x) => x + 1))
+  as: oneOfType([string, func]),
+  children: node,
+  level: oneOfType([
+    oneOf(LEVELS),
+    oneOf([...Array(6).keys()].map((x) => x + 1))
   ]).isRequired
 }
 

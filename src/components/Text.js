@@ -1,5 +1,16 @@
+import {
+  array,
+  bool,
+  func,
+  node,
+  number,
+  object,
+  oneOf,
+  oneOfType,
+  string
+} from 'prop-types'
 import Bit from './Bit'
-import React, { PropTypes } from 'react'
+import React from 'react'
 import { rem } from '../util/cssTools'
 import { typographyVerticalRhythm as vr } from '../util/verticalRhythm'
 
@@ -75,10 +86,10 @@ const Text = (
 }
 
 Text.contextTypes = {
-  baseFontSize: PropTypes.number,
-  lineHeightRatio: PropTypes.number,
-  matchType: PropTypes.func,
-  scaleRatio: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+  baseFontSize: number,
+  lineHeightRatio: number,
+  matchType: func,
+  scaleRatio: oneOfType([number, string])
 }
 
 Text.defaultProps = {
@@ -86,11 +97,11 @@ Text.defaultProps = {
 }
 
 Text.propTypes = {
-  as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  children: PropTypes.node,
-  css: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
-  inline: PropTypes.bool,
-  size: PropTypes.oneOf(Object.keys(TYPOGRAPHY))
+  as: oneOfType([string, func]),
+  children: node,
+  css: oneOfType([array, object]),
+  inline: bool,
+  size: oneOf(Object.keys(TYPOGRAPHY))
 }
 
 Text.sizes = Object.keys(TYPOGRAPHY)
