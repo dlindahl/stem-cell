@@ -30,12 +30,13 @@ const Bit = (allProps, context) => {
     right,
     top,
 
+    size,
     minHeight,
-    height,
+    height = size,
     maxHeight,
 
     minWidth,
-    width,
+    width = size,
     maxWidth,
 
     className,
