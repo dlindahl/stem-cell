@@ -16,7 +16,10 @@ storiesOf('ComponentizeContent', module)
   ))
   .add('Default Settings', () => (
     <ComponentizeContent>
-      {text('Markup', '<p>Lorem <i>ipsum</i> dolor sit amet.</p>')}
+      {text(
+        'Markup',
+        '<p>Lorem <i>ipsum</i> <!-- comment --> dolor sit amet.</p>'
+      )}
     </ComponentizeContent>
   ))
   .add('Image Markup', () => (
