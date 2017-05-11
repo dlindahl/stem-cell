@@ -1,6 +1,6 @@
 {
   "name": "stemcell",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "React build blocks focusing on typographic vertical rhythm",
   "main": "dist/commonjs/index.js",
   "module": "dist/es/index.js",
