@@ -10,14 +10,14 @@ function parse (buffer, doc, options, key) {
     case 'text':
       return [...buffer, doc.content]
     case 'tag': {
-      if (doc.name.startsWith(COMMENT_TAG)) {
-        return buffer
-      }
-      const tag = options.mappings[doc.name] || DEFAULT_TAG
       let children = reactify(doc.children, options, key)
       if (!children.length) {
         children = null
       }
+      if (doc.name.startsWith(COMMENT_TAG)) {
+        return [...buffer, ...children]
+      }
+      const tag = options.mappings[doc.name] || DEFAULT_TAG
       if (tag.fromMarkup) {
         doc.attrs = tag.fromMarkup(doc.attrs)
       }
