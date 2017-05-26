@@ -10,9 +10,9 @@ const OrderedTagType = {
 const List = ({ ordered, type, ...props }) => {
   if (!type) {
     if (ordered) {
-      type = 'disc'
-    } else {
       type = 'decimal'
+    } else {
+      type = 'disc'
     }
   }
   return (
