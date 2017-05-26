@@ -1,26 +1,22 @@
 import Button from '../src/components/Button'
 import Bit from '../src/components/Bit'
 import Code from '../src/components/Code'
+import ComponentizeContent from '../src/components/ComponentizeContent'
 import CssReset from '../src/components/CssReset'
 import Heading from '../src/components/Heading'
 import Image from '../src/components/Image'
-import ComponentizeContent from '../src/components/ComponentizeContent'
+import List from '../src/components/List'
+import ListItem from '../src/components/ListItem'
 import Paragraph from '../src/components/Paragraph'
 import React from 'react'
 import Rule from '../src/components/Rule'
 import Text from '../src/components/Text'
 import VerticalRhythm from '../src/components/VerticalRhythm'
 
-const styles = {
-  container: {
-    textAlign: 'center'
-  }
-}
-
 const App = (props) => (
   <CssReset>
     <VerticalRhythm baseline>
-      <Bit css={styles.container}>
+      <Bit marginHorizontal={3}>
         <Heading level={1}>
           A Visual Type Scale
         </Heading>
@@ -48,6 +44,12 @@ const App = (props) => (
         <Paragraph>
           <Code>inline code</Code>
         </Paragraph>
+
+        <List>
+          <ListItem>Item #1</ListItem>
+          <ListItem>Item #2</ListItem>
+          <ListItem>Item #3</ListItem>
+        </List>
 
         <ComponentizeContent>
           {'<p>markdown-generated <i>HTML</i></p>'}
