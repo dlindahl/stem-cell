@@ -1,4 +1,4 @@
-import { bool, func, node, oneOf, oneOfType, string } from 'prop-types'
+import { func, node, oneOf, oneOfType, string } from 'prop-types'
 import React from 'react'
 import Text from './Text'
 
@@ -11,7 +11,7 @@ const LEVELS = [
   'longPrimer' // H6
 ]
 
-const Heading = ({ as, children, inline, level, ...props }, { theme }) => {
+const Heading = ({ as, children, level, ...props }, { theme }) => {
   let headingLevel = level
   if (typeof level === 'number') {
     as = as || `h${level}`
